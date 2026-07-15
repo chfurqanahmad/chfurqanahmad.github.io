@@ -1,0 +1,28 @@
+FURQAN PORTFOLIO — DEPLOYMENT CHECKLIST
+
+BEFORE UPLOAD
+[ ] Open the current live website and confirm it works.
+[ ] Save a backup copy of the current Coming Soon index.html.
+[ ] Do not change Spaceship DNS, GitHub Pages custom domain, or HTTPS settings.
+
+UPLOAD
+[ ] Open github.com/chfurqanahmad/chfurqanahmad.github.io
+[ ] Upload all files and folders from this package into the repository root.
+[ ] Keep the CNAME file. It must contain only: furqanahmad.com
+[ ] Commit to the main branch.
+
+AFTER UPLOAD
+[ ] Wait a few minutes for GitHub Pages deployment.
+[ ] Open https://furqanahmad.com
+[ ] Hard refresh with Ctrl+Shift+R if the old page remains visible.
+[ ] Test Home, About, Focus, Work, Experience, Credentials and Contact links.
+[ ] Test all three case-study pages.
+[ ] Test the email, LinkedIn and GitHub buttons.
+[ ] Test on a phone.
+[ ] Confirm HTTPS remains active.
+
+DO NOT PUBLISH
+[ ] Confidential AlphaRose contact data
+[ ] Transsion prototype screenshots or unreleased information
+[ ] Private investigation material
+[ ] Passwords, API keys or identity documents
