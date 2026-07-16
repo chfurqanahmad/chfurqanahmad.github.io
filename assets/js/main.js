@@ -7,16 +7,41 @@
     const closeMenu = () => {
       navMenu.classList.remove("open");
       navToggle.setAttribute("aria-expanded", "false");
+      navToggle.setAttribute("aria-label", "Open navigation");
       document.body.classList.remove("menu-open");
     };
 
-    navToggle.addEventListener("click", () => {
-      const isOpen = navMenu.classList.toggle("open");
-      navToggle.setAttribute("aria-expanded", String(isOpen));
-      document.body.classList.toggle("menu-open", isOpen);
+    const openMenu = () => {
+      navMenu.classList.add("open");
+      navToggle.setAttribute("aria-expanded", "true");
+      navToggle.setAttribute("aria-label", "Close navigation");
+      document.body.classList.add("menu-open");
+    };
+
+    navToggle.addEventListener("click", (event) => {
+      event.stopPropagation();
+      if (navMenu.classList.contains("open")) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
     });
 
-    navLinks.forEach((link) => link.addEventListener("click", closeMenu));
+    navLinks.forEach((link) => {
+      link.addEventListener("click", closeMenu);
+    });
+
+    document.addEventListener("pointerdown", (event) => {
+      if (
+        navMenu.classList.contains("open") &&
+        !navMenu.contains(event.target) &&
+        !navToggle.contains(event.target)
+      ) {
+        closeMenu();
+      }
+    });
+
+    window.addEventListener("hashchange", closeMenu);
 
     window.addEventListener("resize", () => {
       if (window.innerWidth > 820) closeMenu();
