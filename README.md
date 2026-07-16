@@ -57,13 +57,3 @@ assets/documents/furqan-ahmad-resume.pdf
 ```
 
 Then add a resume button only after the PDF is approved.
-
-## Confidentiality
-
-Do not add:
-
-- AlphaRose private investor or contact lists
-- Confidential outreach conversations
-- Transsion prototype screenshots or unreleased product information
-- Private investigation files or client information
-- Passwords, API keys or personal identity documents
