@@ -20,9 +20,3 @@ AFTER UPLOAD
 [ ] Test the email, LinkedIn and GitHub buttons.
 [ ] Test on a phone.
 [ ] Confirm HTTPS remains active.
-
-DO NOT PUBLISH
-[ ] Confidential AlphaRose contact data
-[ ] Transsion prototype screenshots or unreleased information
-[ ] Private investigation material
-[ ] Passwords, API keys or identity documents
