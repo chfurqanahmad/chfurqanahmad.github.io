@@ -52,6 +52,42 @@
       font-size: 0.92rem;
       overflow-wrap: anywhere;
     }
+
+    .email-menu {
+      width: 100%;
+    }
+
+    .email-menu summary {
+      list-style: none;
+    }
+
+    .email-menu summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .email-menu[open] .email-arrow {
+      transform: rotate(180deg);
+    }
+
+    .email-arrow {
+      transition: transform 160ms ease;
+    }
+
+    .email-options {
+      display: grid;
+      gap: 8px;
+      margin-top: 8px;
+      padding: 10px;
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      border-radius: 14px;
+      background: rgba(7, 17, 31, 0.5);
+    }
+
+    .email-option {
+      margin: 0;
+      background: rgba(15, 31, 52, 0.78);
+    }
+
   </style>
 </head>
 <body>
@@ -314,16 +350,16 @@
             <div class="timeline-card">
               <div class="timeline-head">
                 <div>
-                  <h3>Customer Support Manager, Career Institute Initiative</h3>
-                  <span class="company">Smart Virtual Support startup assignment</span>
+                  <h3>Career Support Manager</h3>
+                  <span class="company">Educationist, a Smart Virtual Support startup</span>
                 </div>
                 <time>Project assignment</time>
               </div>
               <p>
-                Managed a student-support team handling enquiries generated through advertising,
-                admissions and enrollment questions, course information and general query resolution.
-                Worked with the initiative's CRM to organize leads, follow-ups and student interactions
-                for workforce-focused training programs, including web-development pathways.
+                Managed a student-support team responding to prospective students who contacted Educationist
+                after seeing advertisements. Supported admissions and enrollment enquiries, course information
+                and general query resolution, while using the CRM to organize leads, follow-ups and student
+                interactions for workforce-ready training programs, including web development.
               </p>
             </div>
           </article>
@@ -333,16 +369,16 @@
             <div class="timeline-card">
               <div class="timeline-head">
                 <div>
-                  <h3>Company Data Research &amp; Database Support</h3>
-                  <span class="company">TajirZone, a Smart Virtual Support startup assignment</span>
+                  <h3>Data Research &amp; Database Support</h3>
+                  <span class="company">TajirZone, a Smart Virtual Support startup</span>
                 </div>
                 <time>Project assignment</time>
               </div>
               <p>
-                Researched Pakistani manufacturers and wholesale businesses and collected public company
-                information for a planned nationwide B2B marketplace. Used manual research, spreadsheets
-                and AI-assisted Python scripts to gather, clean, categorize, sort and structure records
-                into datasets intended to support the platform database and future AI-assisted features.
+                Researched Pakistani manufacturers, wholesale dealers and other businesses for TajirZone,
+                a planned nationwide B2B marketplace. Collected public company information through manual
+                research and AI-assisted Python scripts, then cleaned, categorized, sorted and structured
+                the records in spreadsheets and databases to support the marketplace and its planned AI features.
               </p>
             </div>
           </article>
@@ -433,26 +469,37 @@
           <div class="contact-links">
             <p class="email-address"><strong>Email:</strong> thisisfurqanahmad@gmail.com</p>
 
-            <a
-              class="contact-link"
-              href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=thisisfurqanahmad%40gmail.com&amp;su=Portfolio%20Enquiry"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <span>Open Gmail in browser</span><span aria-hidden="true">→</span>
-            </a>
+            <details class="email-menu">
+              <summary class="contact-link">
+                <span>Email</span><span class="email-arrow" aria-hidden="true">⌄</span>
+              </summary>
 
-            <button
-              class="contact-link"
-              type="button"
-              data-copy-email="thisisfurqanahmad@gmail.com"
-            >
-              <span data-copy-label>Copy email address</span><span aria-hidden="true">⧉</span>
-            </button>
+              <div class="email-options">
+                <a
+                  class="contact-link email-option"
+                  href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=thisisfurqanahmad%40gmail.com&amp;su=Portfolio%20Enquiry"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <span>Open in Gmail</span><span aria-hidden="true">→</span>
+                </a>
 
-            <a class="contact-link" href="mailto:thisisfurqanahmad@gmail.com?subject=Portfolio%20Enquiry">
-              <span>Use your default email app</span><span aria-hidden="true">→</span>
-            </a>
+                <button
+                  class="contact-link email-option"
+                  type="button"
+                  data-copy-email="thisisfurqanahmad@gmail.com"
+                >
+                  <span data-copy-label>Copy email address</span><span aria-hidden="true">⧉</span>
+                </button>
+
+                <a
+                  class="contact-link email-option"
+                  href="mailto:thisisfurqanahmad@gmail.com?subject=Portfolio%20Enquiry"
+                >
+                  <span>Open default mail app</span><span aria-hidden="true">→</span>
+                </a>
+              </div>
+            </details>
 
             <a class="contact-link" href="https://www.linkedin.com/in/chfurqanahmad" target="_blank" rel="noopener noreferrer">
               <span>LinkedIn</span><span aria-hidden="true">→</span>
