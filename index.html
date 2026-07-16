@@ -89,6 +89,66 @@
       background: rgba(15, 31, 52, 0.78);
     }
 
+  
+    @media (max-width: 820px) {
+      .nav-menu {
+        max-height: calc(100vh - 96px);
+        overflow-y: auto;
+      }
+
+      .nav-menu .nav-list {
+        display: block;
+      }
+
+      .nav-menu .nav-list li + li {
+        margin-top: 4px;
+      }
+
+      .nav-menu .nav-list a {
+        padding: 12px 14px;
+      }
+
+      .profile-card {
+        width: 190px;
+        padding: 6px;
+        border-radius: 50%;
+        background: rgba(15, 31, 52, 0.76);
+      }
+
+      .profile-card::before {
+        border-radius: 50%;
+      }
+
+      .profile-photo {
+        width: 176px;
+        height: 176px;
+        aspect-ratio: auto;
+        margin: 0 auto;
+        border-radius: 50%;
+        object-fit: cover;
+        object-position: 50% 32%;
+      }
+
+      .profile-note {
+        display: none;
+      }
+
+      .hero-grid {
+        gap: 30px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .profile-card {
+        width: 162px;
+      }
+
+      .profile-photo {
+        width: 148px;
+        height: 148px;
+      }
+    }
+
   </style>
 </head>
 <body>
