@@ -38,6 +38,21 @@
     ]
   }
   </script>
+  <style>
+    button.contact-link {
+      width: 100%;
+      font: inherit;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .email-address {
+      margin: 0 0 13px;
+      color: #cbd5e1;
+      font-size: 0.92rem;
+      overflow-wrap: anywhere;
+    }
+  </style>
 </head>
 <body>
   <a class="skip-link" href="#main-content">Skip to main content</a>
@@ -87,7 +102,7 @@
 
           <div class="button-row">
             <a class="btn btn-primary" href="#work">View My Work</a>
-            <a class="btn btn-secondary" href="mailto:thisisfurqanahmad@gmail.com?subject=Portfolio%20Enquiry">Contact Me</a>
+            <a class="btn btn-secondary" href="#contact">Contact Me</a>
             <a class="btn btn-secondary" href="https://www.linkedin.com/in/chfurqanahmad" target="_blank" rel="noopener noreferrer">LinkedIn</a>
           </div>
         </div>
@@ -299,6 +314,44 @@
             <div class="timeline-card">
               <div class="timeline-head">
                 <div>
+                  <h3>Customer Support Manager, Career Institute Initiative</h3>
+                  <span class="company">Smart Virtual Support startup assignment</span>
+                </div>
+                <time>Project assignment</time>
+              </div>
+              <p>
+                Managed a student-support team handling enquiries generated through advertising,
+                admissions and enrollment questions, course information and general query resolution.
+                Worked with the initiative's CRM to organize leads, follow-ups and student interactions
+                for workforce-focused training programs, including web-development pathways.
+              </p>
+            </div>
+          </article>
+
+          <article class="timeline-item">
+            <span class="timeline-dot" aria-hidden="true"></span>
+            <div class="timeline-card">
+              <div class="timeline-head">
+                <div>
+                  <h3>Company Data Research &amp; Database Support</h3>
+                  <span class="company">TajirZone, a Smart Virtual Support startup assignment</span>
+                </div>
+                <time>Project assignment</time>
+              </div>
+              <p>
+                Researched Pakistani manufacturers and wholesale businesses and collected public company
+                information for a planned nationwide B2B marketplace. Used manual research, spreadsheets
+                and AI-assisted Python scripts to gather, clean, categorize, sort and structure records
+                into datasets intended to support the platform database and future AI-assisted features.
+              </p>
+            </div>
+          </article>
+
+          <article class="timeline-item">
+            <span class="timeline-dot" aria-hidden="true"></span>
+            <div class="timeline-card">
+              <div class="timeline-head">
+                <div>
                   <h3>Senior Research Analyst / Research Analyst</h3>
                   <span class="company">Smart Virtual Support</span>
                 </div>
@@ -378,12 +431,33 @@
           </div>
 
           <div class="contact-links">
-            <a class="contact-link" href="mailto:thisisfurqanahmad@gmail.com?subject=Portfolio%20Enquiry">
-              <span>Email</span><span aria-hidden="true">→</span>
+            <p class="email-address"><strong>Email:</strong> thisisfurqanahmad@gmail.com</p>
+
+            <a
+              class="contact-link"
+              href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=thisisfurqanahmad%40gmail.com&amp;su=Portfolio%20Enquiry"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <span>Open Gmail in browser</span><span aria-hidden="true">→</span>
             </a>
+
+            <button
+              class="contact-link"
+              type="button"
+              data-copy-email="thisisfurqanahmad@gmail.com"
+            >
+              <span data-copy-label>Copy email address</span><span aria-hidden="true">⧉</span>
+            </button>
+
+            <a class="contact-link" href="mailto:thisisfurqanahmad@gmail.com?subject=Portfolio%20Enquiry">
+              <span>Use your default email app</span><span aria-hidden="true">→</span>
+            </a>
+
             <a class="contact-link" href="https://www.linkedin.com/in/chfurqanahmad" target="_blank" rel="noopener noreferrer">
               <span>LinkedIn</span><span aria-hidden="true">→</span>
             </a>
+
             <a class="contact-link" href="https://github.com/chfurqanahmad" target="_blank" rel="noopener noreferrer">
               <span>GitHub</span><span aria-hidden="true">→</span>
             </a>
@@ -399,6 +473,29 @@
       <a href="#home">Back to top ↑</a>
     </div>
   </footer>
+
+
+  <script>
+    (() => {
+      const copyButton = document.querySelector("[data-copy-email]");
+      if (!copyButton) return;
+
+      const label = copyButton.querySelector("[data-copy-label]");
+      const email = copyButton.getAttribute("data-copy-email");
+
+      copyButton.addEventListener("click", async () => {
+        try {
+          await navigator.clipboard.writeText(email);
+          label.textContent = "Email copied";
+          window.setTimeout(() => {
+            label.textContent = "Copy email address";
+          }, 2200);
+        } catch (error) {
+          window.prompt("Copy this email address:", email);
+        }
+      });
+    })();
+  </script>
 
   <script src="assets/js/main.js"></script>
 </body>
