@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Job-Posting Data Quality Audit | Furqan Ahmad</title>
+  <meta name="description" content="A portfolio quality-assurance case study auditing information completeness across sampled Pakistan analyst job advertisements.">
+  <meta name="theme-color" content="#07111f">
+  <link rel="canonical" href="https://furqanahmad.com/projects/job-posting-data-quality-audit.html">
+  <link rel="icon" href="../assets/images/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a class="brand" href="../index.html"><span class="brand-mark" aria-hidden="true">FA</span><span>Furqan Ahmad</span></a>
+      <a class="btn btn-secondary" href="../index.html#work">All work</a>
+    </div>
+  </header>
+
+  <main class="case-study-page" id="main-content">
+    <div class="container">
+      <a class="breadcrumb" href="../index.html#work">← Back to featured work</a>
+
+      <header class="case-study-header">
+        <span class="project-badge project-badge-complete">Completed quality-assurance case study</span>
+        <h1>Job-posting data quality audit</h1>
+        <p class="case-study-lead">
+          A quality review of information completeness across the same 24 Pakistan analyst job advertisements,
+          using a seven-field checklist, defect register, Five Whys root-cause analysis and corrective/preventive actions.
+        </p>
+
+        <div class="case-meta-grid">
+          <div class="case-meta"><small>Sample</small><strong>24 job advertisements</strong></div>
+          <div class="case-meta"><small>Audit criteria</small><strong>7 applicant-facing fields</strong></div>
+          <div class="case-meta"><small>Overall score</small><strong>40% completeness</strong></div>
+          <div class="case-meta"><small>Quality method</small><strong>Audit, RCA &amp; CAPA</strong></div>
+        </div>
+
+        <div class="case-actions">
+          <a class="btn btn-primary" href="../assets/documents/Pakistan_Job_Posting_Data_Quality_Audit.pdf" target="_blank" rel="noopener noreferrer">View full audit</a>
+          <a class="btn btn-secondary" href="../assets/documents/Pakistan_Analyst_Job_Market_and_Data_Quality.xlsx" download>Download audit data</a>
+        </div>
+      </header>
+
+      <section class="case-section">
+        <h2>Audit objective</h2>
+        <p>
+          Determine whether a reasonable applicant receives enough structured information to understand the role,
+          self-screen for eligibility, evaluate the employment arrangement and decide whether to apply.
+          This is an operational and information-quality audit, not a software-testing project.
+        </p>
+      </section>
+
+      <section class="case-section">
+        <h2>Audit framework</h2>
+        <ul>
+          <li>Responsibilities detailed</li>
+          <li>Experience requirement stated</li>
+          <li>Education requirement stated</li>
+          <li>Tools or technical methods named</li>
+          <li>Work arrangement or employment type clear</li>
+          <li>Salary disclosed</li>
+          <li>Application deadline or open-until-filled status visible</li>
+        </ul>
+        <p>Each field received 1 when visible and 0 when absent in the reviewed public source.</p>
+      </section>
+
+      <section class="case-section">
+        <h2>Completeness results</h2>
+        <img src="../assets/images/case-studies/posting-completeness.png" alt="Bar chart showing job-posting information completeness">
+        <div class="case-table-wrap">
+          <table class="case-table">
+            <thead><tr><th>Information field</th><th>Present</th><th>Rate</th><th>Quality interpretation</th></tr></thead>
+            <tbody>
+              <tr><td>Responsibilities detailed</td><td>23 of 24</td><td>96%</td><td>The strongest field.</td></tr>
+              <tr><td>Tools or technical methods named</td><td>16 of 24</td><td>67%</td><td>Useful signal, but detail varies.</td></tr>
+              <tr><td>Experience requirement stated</td><td>10 of 24</td><td>42%</td><td>Many applicants cannot self-screen confidently.</td></tr>
+              <tr><td>Work arrangement / type clear</td><td>10 of 24</td><td>42%</td><td>City alone does not fully describe the arrangement.</td></tr>
+              <tr><td>Education requirement stated</td><td>5 of 24</td><td>21%</td><td>Frequently absent or implicit.</td></tr>
+              <tr><td>Application deadline visible</td><td>2 of 24</td><td>8%</td><td>Major process-clarity gap.</td></tr>
+              <tr><td>Salary disclosed</td><td>1 of 24</td><td>4%</td><td>Major transparency gap.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="case-section">
+        <h2>Defect and risk findings</h2>
+        <ul>
+          <li><strong>Salary not disclosed - Medium:</strong> weakens comparison and compensation transparency.</li>
+          <li><strong>Work arrangement unclear - Medium:</strong> location does not confirm on-site, hybrid or remote expectations.</li>
+          <li><strong>Experience threshold missing - Low:</strong> increases unsuitable or uncertain applications.</li>
+          <li><strong>Tools not specific - Medium:</strong> candidates cannot judge the operating environment.</li>
+          <li><strong>Closing date absent - Low:</strong> creates uncertainty about application urgency.</li>
+          <li><strong>Ambiguous titles - Medium:</strong> Research, Data, MIS, BI and Quality responsibilities often overlap.</li>
+        </ul>
+      </section>
+
+      <section class="case-section">
+        <h2>Root-cause analysis</h2>
+        <p><strong>Problem:</strong> applicant-facing information is inconsistently structured across public job advertisements.</p>
+        <ol>
+          <li>Important fields are missing because advertisements use different formats.</li>
+          <li>Formats differ because employers, recruiters and job boards use separate templates.</li>
+          <li>Templates are not governed by a common applicant-information standard.</li>
+          <li>Publishing focuses on attracting applications rather than measurable information quality.</li>
+          <li>Ownership is fragmented across hiring managers, HR, recruiters and job platforms.</li>
+        </ol>
+        <div class="case-callout">
+          Likely root cause: fragmented ownership and non-standard templates, combined with habitual
+          or deliberate non-disclosure of selected fields.
+        </div>
+      </section>
+
+      <section class="case-section">
+        <h2>Corrective and preventive actions</h2>
+        <ul>
+          <li>Add mandatory fields for salary, experience, education, work mode and closing status.</li>
+          <li>Require hiring-manager approval of responsibilities, tools and essential/preferred requirements.</li>
+          <li>Create a controlled job-family and title taxonomy.</li>
+          <li>Introduce a pre-publication QA checklist.</li>
+          <li>Audit a monthly sample and report completeness trends.</li>
+          <li>Use “open until filled” when no fixed closing date exists.</li>
+        </ul>
+      </section>
+
+      <section class="case-section">
+        <h2>Effectiveness measures</h2>
+        <ul>
+          <li>90% or greater completeness across mandatory applicant-facing fields.</li>
+          <li>100% of active postings show a deadline or approved open-until-filled status.</li>
+          <li>Fewer applicant clarification questions.</li>
+          <li>Reduced mismatch between applications and role requirements.</li>
+          <li>No posting published with unresolved critical fields.</li>
+        </ul>
+      </section>
+
+      <section class="case-section">
+        <h2>What this project demonstrates</h2>
+        <ul>
+          <li>Defining measurable quality criteria before review.</li>
+          <li>Auditing a sample consistently using binary evidence rules.</li>
+          <li>Calculating field-level and overall completeness rates.</li>
+          <li>Separating defects, risks, root causes and actions.</li>
+          <li>Building CAPA recommendations with effectiveness measures.</li>
+        </ul>
+      </section>
+
+      <section class="case-section">
+        <h2>Limitations</h2>
+        <ul>
+          <li>This is a 24-posting portfolio sample, not a platform-wide compliance audit.</li>
+          <li>Some sources show summarized job text rather than every original field.</li>
+          <li>A field missing from the reviewed page may exist elsewhere in the application system.</li>
+          <li>The audit does not test recruiter response, selection fairness or employer quality.</li>
+        </ul>
+      </section>
+
+      <section class="case-section">
+        <h2>Selected public sources</h2>
+        <ul class="source-list">
+          <li><a href="https://pk.indeed.com/q-research-analyst-jobs.html" target="_blank" rel="noopener noreferrer">Indeed Pakistan - Research Analyst jobs</a></li>
+<li><a href="https://pk.indeed.com/q-data-analyst-l-lahore-jobs.html" target="_blank" rel="noopener noreferrer">Indeed Pakistan - Data Analyst jobs in Lahore</a></li>
+<li><a href="https://pk.indeed.com/q-quality-analyst-jobs.html" target="_blank" rel="noopener noreferrer">Indeed Pakistan - Quality Analyst jobs</a></li>
+<li><a href="https://pk.linkedin.com/jobs/data-analytics-jobs" target="_blank" rel="noopener noreferrer">LinkedIn Pakistan - Data Analytics jobs</a></li>
+<li><a href="https://pk.indeed.com/viewjob?jk=ed78f68cc09a6e59" target="_blank" rel="noopener noreferrer">Limitless Incubators - Business Research Analyst</a></li>
+<li><a href="https://pk.indeed.com/q-junior-commercial-analyst-l-lahore-jobs.html" target="_blank" rel="noopener noreferrer">ACE Money Transfer - Junior Commercial Data Analyst</a></li>
+<li><a href="https://pk.indeed.com/q-burq%2C-inc.-jobs.html" target="_blank" rel="noopener noreferrer">Burq - Data Analyst</a></li>
+<li><a href="https://apply.workable.com/brainlake-agency/j/7B24DC8731/apply/" target="_blank" rel="noopener noreferrer">Brainlake - Data Quality Analyst</a></li>
+<li><a href="https://jobs.smartrecruiters.com/oneclick-ui/company/NielsenIQ/publication/6558618c-05ad-4a9e-91d3-6e96ba42b31f" target="_blank" rel="noopener noreferrer">NielsenIQ - Quality Associate Data OPS</a></li>
+        </ul>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-wrap"><span>© <span data-current-year>2026</span> Furqan Ahmad.</span><a href="../index.html">Portfolio home</a></div>
+  </footer>
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>
