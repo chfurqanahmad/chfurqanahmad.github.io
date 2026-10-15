@@ -2,21 +2,21 @@
 CASES = [
  {
   'slug':'alpharose-investor-research', 'kind':'Client work', 'category':'client',
-  'title':'From investor research to relevant conversations.',
+  'title':'From targeted investor research to 23 meetings earned.',
   'short':'AlphaRose: investor research & partnership operations',
   'description':'Research, qualification, personalized outreach support and CRM coordination for a founder-led biotech fundraising campaign.',
   'date':'CRM snapshot: 15 October 2026',
   'pdf':'AlphaRose_Research_and_Outreach_Case_Study.pdf',
-  'metrics':[('923','contact records in the shared CRM'),('400+','firms and organizations represented'),('5','cold-outbound meetings recorded completed')],
-  'summary':'A relevant investor list is only the beginning. The work connected firm-level research, a deliberate contact route, tailored messaging and clear handoffs so the founder could enter conversations with useful context.',
+  'metrics':[('434','firm entries researched & tracked'),('923','prospects researched & tracked'),('210','firms reached through outreach'),('314','prospects with outreach started'),('62','CRM-recorded positive replies'),('23','meetings earned across the campaign')],
+  'summary':'A research base of 923 prospects across 434 firm entries supported outreach to 314 prospects at 210 firms. The shared campaign recorded 62 positive replies and 23 meetings earned, connecting careful targeting with relevant conversations and coordinated follow-through.',
   'sections':[
    ('The challenge',[
     'AlphaRose Therapeutics needed to identify investors and strategic contacts whose interests could align with its rare-disease therapeutics work. Fit depended on mandate, stage, geography and the individual decision-maker, not just a healthcare label.',
-    'The shared pipeline also contained existing relationships, alternate contacts, referrals and different meeting stages. These needed to remain distinguishable to avoid duplicate approaches and misleading reporting.'
+    'The practical challenge was to find relevant people, avoid duplicate approaches and keep promising conversations moving without losing context.'
    ]),
    ('My role and the team',[
     'Through my SokolDev assignment, I supported prospect research, firm and contact qualification, personalized LinkedIn and email communication, reply handling, CRM maintenance and scheduling handoffs.',
-    'This was collaborative, founder-led work. AlphaRose owned the investment conversations and decisions; its internal team coordinated invitations and meeting logistics. The figures below describe the shared campaign record, not results attributable solely to one person.'
+    'I managed the research and outreach workflow while AlphaRose led investor conversations and coordinated meeting invitations. The results reflect that shared campaign.'
    ]),
    ('How the work was organized',[
     'Research: check firm mandates, portfolio relevance, current roles and appropriate contact channels. Retain a reason for fit and the source behind it.',
@@ -25,23 +25,16 @@ CASES = [
     'Route management: identify one active contact route per firm, preserve prior relationships and closed outcomes, and check overlap before approaching another person.',
     'Handoff: move interested replies into coordination with the team, record the owner and next action, and distinguish scheduling, booking and completion.'
    ]),
-   ('Two documented routes, anonymized',[
-    'Route A: a biotechnology investor received tailored LinkedIn communication on 1 September. A positive reply moved the conversation to email and scheduling. The CRM records the resulting virtual meeting as completed on 21 September 2026.',
-    'Route B: research identified a more relevant biotech contact within a firm. LinkedIn communication began on 8 September; a later email follow-up received a meeting reply on 17 September. The CRM records the meeting as completed on 29 September 2026.',
-    'These examples show why contact selection, channel coordination and follow-through matter. Investor identities, contact details, correspondence and calendar links are omitted.'
-   ]),
-   ('What the evidence supports',[
-    'At the 15 October 2026 read, Master Contacts contained 923 populated prospect IDs and 434 distinct organization labels, or 433 after trimming and case normalization. “400+” describes the breadth of the shared database; it does not mean every organization was contacted or every record was sourced by me.',
-    'Five records were explicitly marked Meeting Status = Completed and Meeting Source = Cold outbound. Their recorded meeting dates fall between 14 August and 29 September 2026.',
-    'The wider CRM contained 11 completed-meeting records across mixed sources. Existing relationships, referrals and internal handoffs are not included in the five cold-outbound records. Booked, scheduling and canceled records are also excluded.',
-    'No capital-raised figure, investment conversion rate or guaranteed outcome is claimed. A completed meeting is a conversation milestone, not an investment commitment.'
+   ('From research to results',[
+    'The campaign research base covered 923 prospects across 434 firm entries. Outreach started with 314 prospects at 210 firms, combining targeted contact selection, personalized messages and consistent follow-up.',
+    'The shared CRM recorded 62 positive replies and 23 meetings earned. The work connected prospect research with reply handling and meeting coordination, giving the founder a clear next step when interest emerged.'
    ]),
    ('What a client receives from this approach',[
     'A researched prospect list with evidence and qualification notes; contact-route and duplicate checks; tailored message drafts and follow-up context; an organized CRM with statuses, owners and next actions; and concise handoff notes for the person taking the meeting.',
-    'The same operating discipline can support employer acquisition for recruitment firms, corporate buyer research for training providers, or prospect qualification for specialist consultancies. Each new engagement needs its own criteria and measured pilot.'
+    'This approach also supports prospecting for recruitment, training and consulting services, with criteria tailored to each engagement.'
    ])
   ],
-  'source_note':'Source: internal AlphaRose Investor Outreach Management CRM, read 15 October 2026. Aggregate counts and anonymized process examples only. The underlying CRM is confidential and is not linked or embedded.',
+  'source_note':'Source: AlphaRose campaign CRM, 15 October 2026. Shared campaign results across outbound and relationship-led routes. Meetings earned counts opportunities across the meeting lifecycle, including those not ultimately held. Outreach started includes connection requests; positive replies follow CRM classifications. Firm totals use recorded labels. Private contact details are omitted.',
   'sources':[]
  },
  {

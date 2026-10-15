@@ -53,7 +53,7 @@ for c in CASES:
     require('Sources & scope' in txt,f'{pdf.name}: missing evidence explanation')
     require('before publishing' not in txt.lower(),f'{pdf.name}: publishing instructions')
     if c['category']=='client':
-        require('923' in txt and '400+' in txt and 'solely' in txt,'AlphaRose PDF evidence missing')
+        require(all(v in txt for v in ['923','434','210','314','62','23','not ultimately held']),'AlphaRose PDF evidence missing')
     require('thisisfurqanahmad@gmail.com' in txt,f'{pdf.name}: missing contact')
 
 for path in [ROOT/'sitemap.xml',ROOT/'assets/images/favicon.svg']:

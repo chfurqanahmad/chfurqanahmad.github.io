@@ -61,7 +61,7 @@
   }));
 
   const audiences = {
-    recruitment: ['Recruitment & executive search', 'Research employers, relevant hiring activity and decision-makers for your specialty. Support conversations about your recruitment service.', 'An open role is a research signal, not proof that an employer will use an agency.'],
+    recruitment: ['Recruitment & executive search', 'Research employers, relevant hiring activity and decision-makers for your specialty. Support conversations about your recruitment service.', 'Focus the research on your hiring specialty, target employers and relevant decision-makers.'],
     training: ['Corporate training providers', 'Identify relevant employers, learning leaders and business teams for your specific training offer. Add company context and coordinate tailored outreach.', 'Agree on the program, ideal employer profile and buyer role before expanding the research.'],
     consulting: ['Specialist B2B consultancies', 'Find companies facing the specific problem your service addresses. Research decision-makers, document the reason for fit and support relevant conversations.', 'A focused specialty makes the research and message more useful than a broad list of businesses.']
   };
