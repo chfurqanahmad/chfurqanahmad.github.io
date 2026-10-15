@@ -1,92 +1,117 @@
+/* Progressive enhancement: core content and email contact work without JavaScript. */
 (() => {
-  const navToggle = document.querySelector(".nav-toggle");
-  const navMenu = document.querySelector(".nav-menu");
-  const navLinks = document.querySelectorAll(".nav-menu a");
+  'use strict';
+  const doc = document;
+  const email = 'thisisfurqanahmad@gmail.com';
+  doc.querySelectorAll('[data-current-year]').forEach(el => { el.textContent = new Date().getFullYear(); });
 
-  if (navToggle && navMenu) {
-    const closeMenu = (restoreFocus = false) => {
-      const wasOpen = navMenu.classList.contains("open");
-      navMenu.classList.remove("open");
-      navToggle.setAttribute("aria-expanded", "false");
-      navToggle.setAttribute("aria-label", "Open navigation");
-      document.body.classList.remove("menu-open");
-      if (restoreFocus && wasOpen) navToggle.focus();
+  const toggle = doc.querySelector('.nav-toggle');
+  const menu = doc.querySelector('#primary-navigation');
+  if (toggle && menu) {
+    const close = () => {
+      menu.classList.remove('is-open');
+      toggle.setAttribute('aria-expanded', 'false');
+      toggle.setAttribute('aria-label', 'Open navigation');
     };
-
-    const openMenu = () => {
-      navMenu.classList.add("open");
-      navToggle.setAttribute("aria-expanded", "true");
-      navToggle.setAttribute("aria-label", "Close navigation");
-      document.body.classList.add("menu-open");
-    };
-
-    navToggle.addEventListener("click", (event) => {
-      event.stopPropagation();
-      if (navMenu.classList.contains("open")) {
-        closeMenu();
-      } else {
-        openMenu();
-      }
+    toggle.addEventListener('click', () => {
+      const open = toggle.getAttribute('aria-expanded') !== 'true';
+      menu.classList.toggle('is-open', open);
+      toggle.setAttribute('aria-expanded', String(open));
+      toggle.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
     });
-
-    navLinks.forEach((link) => {
-      link.addEventListener("click", () => {
-        closeMenu();
-        const target = document.querySelector(link.getAttribute("href"));
-        if (target) {
-          if (!target.hasAttribute("tabindex")) target.setAttribute("tabindex", "-1");
-          target.focus({ preventScroll: true });
+    menu.addEventListener('click', event => {
+      const link = event.target.closest('a');
+      if (link && toggle.getAttribute('aria-expanded') === 'true') {
+        close();
+        const destination = doc.getElementById(link.getAttribute('href').slice(1));
+        if (destination) {
+          destination.setAttribute('tabindex', '-1');
+          destination.focus({ preventScroll: true });
         }
-      });
-    });
-
-    document.addEventListener("pointerdown", (event) => {
-      if (
-        navMenu.classList.contains("open") &&
-        !navMenu.contains(event.target) &&
-        !navToggle.contains(event.target)
-      ) {
-        closeMenu();
       }
     });
-
-    window.addEventListener("hashchange", () => closeMenu());
-
-    window.addEventListener("resize", () => {
-      if (window.innerWidth > 980) closeMenu();
+    doc.addEventListener('click', event => {
+      if (!menu.contains(event.target) && !toggle.contains(event.target)) close();
     });
-
-    document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape") closeMenu(true);
+    doc.addEventListener('keydown', event => {
+      if (event.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') {
+        close();
+        toggle.focus();
+      }
     });
-
-    navMenu.addEventListener("focusout", () => {
-      window.setTimeout(() => {
-        if (!navMenu.contains(document.activeElement) && document.activeElement !== navToggle) closeMenu();
-      }, 0);
+    doc.addEventListener('focusin', event => {
+      if (!menu.contains(event.target) && !toggle.contains(event.target)) close();
     });
-    document.documentElement.classList.add("nav-ready");
+    window.addEventListener('resize', () => { if (window.innerWidth > 960) close(); });
+    doc.documentElement.classList.add('nav-ready');
   }
 
-  document.querySelectorAll("[data-copy-email]").forEach((button) => {
-    const label = button.querySelector("[data-copy-label]");
-    let resetTimer;
-    button.addEventListener("click", async () => {
-      const email = button.getAttribute("data-copy-email");
-      try {
-        if (!navigator.clipboard || !navigator.clipboard.writeText) throw new Error("Clipboard unavailable");
-        await navigator.clipboard.writeText(email);
-        if (label) {
-          label.textContent = "Email copied";
-          window.clearTimeout(resetTimer);
-          resetTimer = window.setTimeout(() => { label.textContent = "Copy email address"; }, 2200);
-        }
-      } catch {
-        window.prompt("Copy this email address:", email);
-      }
+  const filters = [...doc.querySelectorAll('[data-filter]')];
+  const cards = [...doc.querySelectorAll('.work-card[data-category]')];
+  filters.forEach(button => button.addEventListener('click', () => {
+    const category = button.dataset.filter;
+    filters.forEach(item => item.setAttribute('aria-pressed', String(item === button)));
+    let count = 0;
+    cards.forEach(card => {
+      card.hidden = category !== 'all' && card.dataset.category !== category;
+      if (!card.hidden) count++;
     });
+    const output = doc.querySelector('[data-filter-count]');
+    if (output) output.textContent = `${count} case ${count === 1 ? 'study' : 'studies'}`;
+  }));
+
+  const audiences = {
+    recruitment: ['Recruitment & executive search', 'Research employers, relevant hiring activity and decision-makers for your specialty. Support conversations about your recruitment service.', 'An open role is a research signal, not proof that an employer will use an agency.'],
+    training: ['Corporate training providers', 'Identify relevant employers, learning leaders and business teams for your specific training offer. Add company context and coordinate tailored outreach.', 'Agree on the program, ideal employer profile and buyer role before expanding the research.'],
+    consulting: ['Specialist B2B consultancies', 'Find companies facing the specific problem your service addresses. Research decision-makers, document the reason for fit and support relevant conversations.', 'A focused specialty makes the research and message more useful than a broad list of businesses.']
+  };
+  const audienceButtons = [...doc.querySelectorAll('[data-audience]')];
+  const audienceDetail = doc.querySelector('#audience-detail');
+  audienceButtons.forEach(button => button.addEventListener('click', () => {
+    const entry = audiences[button.dataset.audience];
+    if (!entry || !audienceDetail) return;
+    audienceButtons.forEach(item => item.setAttribute('aria-pressed', String(item === button)));
+    audienceDetail.querySelector('h4').textContent = entry[0];
+    const paragraphs = audienceDetail.querySelectorAll('p');
+    paragraphs[0].textContent = entry[1];
+    paragraphs[1].textContent = entry[2];
+  }));
+
+  const copy = doc.querySelector('[data-copy-email]');
+  const copyStatus = doc.querySelector('[data-copy-status]');
+  if (copy) copy.addEventListener('click', async () => {
+    try {
+      if (!navigator.clipboard || !navigator.clipboard.writeText) throw new Error('Clipboard unavailable');
+      await navigator.clipboard.writeText(email);
+      if (copyStatus) copyStatus.textContent = 'Email address copied.';
+    } catch (_) {
+      if (copyStatus) copyStatus.textContent = `Select and copy the address above: ${email}`;
+    }
   });
 
-  const year = document.querySelector("[data-current-year]");
-  if (year) year.textContent = new Date().getFullYear();
+  const form = doc.querySelector('#project-brief');
+  if (form) form.addEventListener('submit', event => {
+    event.preventDefault();
+    if (!form.reportValidity()) return;
+    const service = doc.querySelector('#brief-service').value;
+    const company = doc.querySelector('#brief-company').value.trim();
+    const goal = doc.querySelector('#brief-goal');
+    if (!goal.value.trim()) {
+      goal.setCustomValidity('Please describe your project goal.');
+      goal.reportValidity();
+      goal.addEventListener('input', () => goal.setCustomValidity(''), { once: true });
+      return;
+    }
+    const subject = `Project enquiry: ${service}`;
+    const body = `Hi Furqan,\n\nI’m interested in: ${service}\n${company ? `Name or company: ${company}\n` : ''}\nMy goal:\n${goal.value.trim()}\n\nPlease let me know what you need to scope this project.\n\nThank you${company ? `,\n${company}` : '.'}`;
+    doc.querySelector('#brief-mail').href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    doc.querySelector('#brief-gmail').href = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(email)}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    doc.querySelector('#brief-preview').textContent = `Subject: ${subject}\n\n${body}`;
+    const result = doc.querySelector('#brief-result');
+    result.hidden = false;
+    const status = result.querySelector('.brief-status');
+    status.setAttribute('tabindex', '-1');
+    status.focus();
+  });
+  doc.querySelectorAll('[data-enhanced]').forEach(el => { el.hidden = false; });
 })();

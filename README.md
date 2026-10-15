@@ -1,38 +1,30 @@
 # Furqan Ahmad Portfolio
 
-A lightweight static portfolio for **furqanahmad.com**, built with plain HTML, CSS and JavaScript.
+Public portfolio at https://furqanahmad.com, hosted directly from this repository with GitHub Pages. Plain HTML, CSS and JavaScript; no runtime build or third-party frontend dependencies.
 
-## Public profile
+The homepage presents prospect research, lead generation, LinkedIn/email outreach support, CRM coordination and business research. Case studies distinguish collaborative client work from independent and demonstration studies.
 
-- **Name:** Furqan Ahmad
-- **Title:** Research, Quality & Outreach Analyst | Mobile Product Tester
-- **Location:** Lahore, Pakistan
-- **Email:** thisisfurqanahmad@gmail.com
-- **LinkedIn:** https://www.linkedin.com/in/chfurqanahmad
-- **GitHub:** https://github.com/chfurqanahmad
+## Maintaining the site
 
-## Why this site is lightweight
+- `scripts/case_studies.py` holds reviewed public case-study content.
+- `scripts/build_portfolio.py` generates the homepage, case pages, workflow, privacy, legacy landing pages, 404 and sitemap.
+- `scripts/build_case_pdfs.py` generates four matching downloadable reports (requires Python and ReportLab).
+- `assets/css/style.css` and `assets/js/main.js` hold styling and progressive enhancements.
+- Original source workbook and career resumes remain in `assets/documents/`.
 
-The website does not require Node.js, Jekyll, Ruby, npm or a local build process. GitHub Pages can serve the files directly.
+Run from the repository:
 
-## Repository structure
-
-```text
-.
-├── index.html
-├── 404.html
-├── CNAME
-├── .nojekyll
-├── robots.txt
-├── sitemap.xml
-├── assets/
-│   ├── css/style.css
-│   ├── js/main.js
-│   └── images/
-│       ├── favicon.svg
-│       └── profile-photo.jpeg
-└── projects/
-    ├── research-verification.html
-    ├── prospect-outreach.html
-    └── qa-testing.html
+```sh
+python scripts/build_portfolio.py
+python scripts/build_case_pdfs.py
+python scripts/check_site.py
+node scripts/check_interactions.cjs
 ```
+
+Commit generated HTML and PDFs as well as their source. GitHub Pages serves these files directly. When updating CSS or JS, update `REV` in the HTML builder to refresh cached assets.
+
+## Content and privacy
+
+Use substantiated results with their date, definition and attribution. Do not add private CRM exports, contact records, correspondence, calendar links or credentials. AlphaRose figures are an aggregate snapshot of shared campaign records, not a claim of sole attribution or investment raised.
+
+The project form creates email draft links in the visitor's browser; it does not submit, send or store messages. Contact and case-study content remain usable without JavaScript. No analytics or external font scripts are added.
