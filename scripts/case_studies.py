@@ -24,7 +24,7 @@ CASES = [{'slug': 'alpharose-investor-research',
                  'The practical challenge was to find relevant people, avoid duplicate approaches and keep '
                  'promising conversations moving without losing context.']),
                ('My role and the team',
-                ['Through my SokolDev assignment, I supported prospect research, firm and contact '
+                ['For AlphaRose, I supported prospect research, firm and contact '
                  'qualification, personalized LinkedIn and email communication, reply handling, CRM '
                  'maintenance and scheduling handoffs.',
                  'I managed the research and outreach workflow while AlphaRose led investor conversations '
