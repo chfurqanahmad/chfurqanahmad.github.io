@@ -24,9 +24,8 @@ CASES = [{'slug': 'alpharose-investor-research',
                  'The practical challenge was to find relevant people, avoid duplicate approaches and keep '
                  'promising conversations moving without losing context.']),
                ('My role and the team',
-                ['For AlphaRose, I supported prospect research, firm and contact '
-                 'qualification, personalized LinkedIn and email communication, reply handling, CRM '
-                 'maintenance and scheduling handoffs.',
+                ['For AlphaRose, I supported prospect research, firm and contact qualification, personalized '
+                 'LinkedIn and email communication, reply handling, CRM maintenance and scheduling handoffs.',
                  'I managed the research and outreach workflow while AlphaRose led investor conversations '
                  'and coordinated meeting invitations. The results reflect that shared campaign.']),
                ('How the work was organized',
@@ -63,54 +62,60 @@ CASES = [{'slug': 'alpharose-investor-research',
  {'slug': 'sokoldev-business-research',
   'kind': 'Client work',
   'category': 'client',
-  'title': 'Research, leads and new business conversations.',
+  'title': 'From prospect research to 80+ client meetings.',
   'short': 'SokolDev: B2B research & business development',
-  'description': 'Prospect research, lead delivery and business-development support, backed by workflow '
-                 'creation, training and quality review.',
+  'description': 'Qualified prospect research and lead generation for IT, software, design, research and '
+                 'outreach services.',
   'date': 'Ongoing engagement · October 2026',
   'pdf': 'SokolDev_Research_and_Business_Development_Case_Study.pdf',
-  'metrics': [],
-  'card_result': ('B2B', 'research, leads and meetings earned'),
-  'summary': 'For SokolDev, I researched prospective clients, delivered leads and supported the team’s work '
-             'to earn meetings. Alongside business development, I contributed to research methods, analyst '
-             'training, workflows and quality standards.',
-  'sections': [('My contribution',
-                ['I researched companies and prospects, assessed relevance and supplied leads to the team. I '
-                 'also helped turn interested conversations into tailored service approaches, one-page '
-                 'breakdowns and proposals.',
-                 'My wider SokolDev responsibilities included research and R&D, analyst training, workflow '
-                 'creation, quality maintenance and strategy. This connected day-to-day prospecting with '
-                 'more consistent research and delivery practices.']),
-               ('What the work delivered',
-                ['Researched prospects and lead lists for business-development activity.',
-                 'Meetings earned through the team’s outreach work, supported by research and '
-                 'follow-through.',
-                 'Service approaches and proposal support that connected a prospect’s needs with a practical '
-                 'scope of work.',
-                 'Research workflows, quality review and training support for the wider team.']),
-               ('How this helps your business',
-                ['If your team can deliver its service but needs help identifying suitable companies and '
-                 'preparing relevant conversations, I can support the research, lead preparation and '
-                 'follow-through.',
-                 'The scope can start with a focused research brief and sample list, then extend to outreach '
-                 'coordination, reply handling and proposal support as needed.']),
+  'metrics': [('1,000+', 'prospects researched and qualified'),
+              ('500+', 'businesses researched'),
+              ('80+', 'client meetings earned')],
+  'summary': 'I researched more than 1,000 prospects across over 500 businesses, supplied qualification '
+             'context and leads, and helped earn more than 80 client meetings for SokolDev. The work '
+             'supported business development across IT, software, design, research, lead-generation and '
+             'outreach services.',
+  'sections': [('The client and the opportunity',
+                ['SokolDev provides web and mobile development, UI/UX design, AI and workflow automation, '
+                 'staff augmentation, SEO and lead-generation services. My work supported the commercial '
+                 'side: identifying relevant businesses, qualifying prospects and helping the team start '
+                 'client conversations.']),
+               ('My contribution',
+                ['I researched prospective clients and decision-makers, assessed their relevance to the '
+                 'service being offered, and delivered leads with qualification context. Research covered '
+                 'potential buyers of IT, software, design, research, lead-generation and outreach support.',
+                 'I supported the path from research to meetings and tailored service proposals. Alongside '
+                 'this work, I contributed to R&D, analyst training, workflow creation, quality maintenance '
+                 'and strategy.']),
+               ('Results and deliverables',
+                ['More than 1,000 prospects researched and qualified across more than 500 businesses.',
+                 'More than 80 client meetings earned, with leads and research supporting the team’s '
+                 'business-development activity.',
+                 'Qualification context, lead handoffs and tailored service approaches that helped the team '
+                 'prepare relevant conversations.']),
+               ('What this means for your team',
+                ['I can take on prospect research and qualification, deliver usable leads, and support '
+                 'outreach and interested-reply handoffs. The starting point is your service, target buyer '
+                 'and a clear definition of fit.']),
                ('Engagement scope',
-                ['This case study covers SokolDev’s business-development and internal research work. The '
-                 'AlphaRose investor campaign is presented separately, with its own results.'])],
-  'source_note': 'Based on my SokolDev responsibilities and work completed, as confirmed in October 2026. '
-                 'Outcomes are described qualitatively; no numerical lead or meeting total is claimed. '
-                 'Private prospect identities and correspondence are excluded.',
-  'sources': []},
- {'slug': 'pakistan-analyst-job-market',
+                ['These results cover SokolDev work. The AlphaRose investor campaign is presented separately '
+                 'and is not included in these totals.'])],
+  'source_note': 'Campaign totals supplied by Furqan Ahmad, October 2026. Company service context checked '
+                 'against SokolDev’s public website and LinkedIn profile. Meetings are business-development '
+                 'outcomes; revenue or signed-client totals are not claimed.',
+  'sources': [('SokolDev services', 'https://sokoldev.co.uk/'),
+              ('SokolDev company profile', 'https://www.linkedin.com/company/sokoldev'),
+              ('SokolDev design portfolio', 'https://www.behance.net/sokoldevltd')]},
+ {'slug': 'analyst-job-market',
   'kind': 'Independent study',
   'category': 'research',
   'title': 'Turning job-market information into a learning priority.',
-  'short': 'Pakistan analyst job-market study',
+  'short': 'Analyst job-market study',
   'description': 'A structured comparison of 24 public job advertisements across Research, Data and Quality '
                  'roles.',
   'date': 'Source observation: 27 July 2026',
-  'pdf': 'Pakistan_Analyst_Job_Market_Skills_Study.pdf',
-  'dataset': 'Pakistan_Analyst_Job_Market_and_Data_Quality.xlsx',
+  'pdf': 'Analyst_Job_Market_Skills_Study.pdf',
+  'dataset': 'Analyst_Job_Market_and_Data_Quality.xlsx',
   'metrics': [('24', 'job advertisements'),
               ('3', 'role families, eight ads each'),
               ('13', 'skill categories coded')],
@@ -118,7 +123,7 @@ CASES = [{'slug': 'alpharose-investor-research',
              'spreadsheet analysis and information quality before treating every technical tool as equally '
              'urgent.',
   'sections': [('The question',
-                ['Which capabilities recur across Research, Data and Quality analyst roles in Pakistan, and '
+                ['Which capabilities recur across Research, Data and Quality analyst roles in the sample market, and '
                  'what should a candidate prioritize learning? This was an independent portfolio study, not '
                  'a commissioned recruitment engagement.']),
                ('Scope and method',
@@ -127,7 +132,7 @@ CASES = [{'slug': 'alpharose-investor-research',
                  'the downloadable workbook.',
                  'Thirteen skills were coded as present or absent in the reviewed source text. Counts were '
                  'calculated across the full sample and within each role family. The balanced sample '
-                 'supports comparison; it does not estimate the distribution of jobs in Pakistan.']),
+                 'supports comparison; it does not estimate the distribution of jobs in the sample market.']),
                ('Findings',
                 ['Reporting, analytical thinking and communication were coded in all 24 records. '
                  'Documentation, data cleaning and spreadsheets also recurred frequently. The table shows '
@@ -176,8 +181,8 @@ CASES = [{'slug': 'alpharose-investor-research',
   'description': 'A seven-field completeness audit with evidence, corrective actions and a practical '
                  'publication checklist.',
   'date': 'Source observation: 27 July 2026',
-  'pdf': 'Pakistan_Job_Posting_Data_Quality_Audit.pdf',
-  'dataset': 'Pakistan_Analyst_Job_Market_and_Data_Quality.xlsx',
+  'pdf': 'Job_Posting_Data_Quality_Audit.pdf',
+  'dataset': 'Analyst_Job_Market_and_Data_Quality.xlsx',
   'metrics': [('24', 'job advertisements reviewed'),
               ('7', 'information fields per record'),
               ('40%', 'overall field completeness, rounded')],
@@ -249,7 +254,7 @@ CASES = [{'slug': 'alpharose-investor-research',
              'and an employer-designed workforce program require different partners. A single score should '
              'not replace that judgment.',
   'sections': [('The brief',
-                ['A fictional employer wanted a partner for digital-skills development in Pakistan. The '
+                ['A fictional employer wanted a partner for digital-skills development in the sample market. The '
                  'assessment compared DigiSkills, Saylani Mass IT Training and the Punjab Skills Development '
                  'Fund using official public materials. It was a demonstration study, not paid work for '
                  'these providers.']),

@@ -65,7 +65,7 @@ def build(c):
     if metric: metric.setStyle(TableStyle([('VALIGN',(0,0),(-1,-1),'TOP'),('BACKGROUND',(0,0),(-1,-1),SOFT),('LEFTPADDING',(0,0),(-1,-1),12),('RIGHTPADDING',(0,0),(-1,-1),12),('TOPPADDING',(0,0),(-1,-1),12),('BOTTOMPADDING',(0,0),(-1,-1),10)]))
     story += ([metric,Spacer(1,10)] if metric else []) + [p('The short version','CaseHeading'),p(c['summary'])]
     for i,(title,paras) in enumerate(c['sections']):
-        if c['slug']=='alpharose-investor-research' and i==2: story.append(PageBreak())
+        if c['category']=='client' and i==2: story.append(PageBreak())
         story.append(p(title,'CaseHeading'))
         story += [p(text) for text in paras]
         if i==2 and c.get('table'):
