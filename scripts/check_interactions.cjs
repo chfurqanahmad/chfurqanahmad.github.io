@@ -81,7 +81,7 @@ class Element {
  await filters[2].fire('click');assert.equal(all('.work-card').filter(e=>!e.hidden).length,3);
  await filters[0].fire('click');assert.equal(all('.work-card').filter(e=>!e.hidden).length,5);
  const audiences=all('[data-audience]');
- assert.equal(audiences.length,5);
+ assert.equal(audiences.length,6);
  for (const button of audiences) {
    await button.fire('click');
    assert.equal(q('#audience-detail').querySelector('h4').textContent,button.textContent);

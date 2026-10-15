@@ -26,3 +26,14 @@
 @media(hover:none),(pointer:coarse){.email-copy{opacity:1}}
 @media(prefers-reduced-motion:reduce){.email-copy{transition:none}}
 @media print{.email-copy{display:none!important}}
+
+.investor-service{display:grid;grid-template-columns:1.15fr 1fr;gap:48px;padding:36px;margin-top:32px;border:1px solid var(--line);border-radius:var(--radius);background:white}
+.investor-service h3{margin:12px 0 18px;font-size:1.8rem}
+.investor-service p{font-size:.94rem;color:var(--muted)}
+.investor-service .text-link{margin-top:20px;font-size:.86rem;color:var(--teal)}
+.investor-deliverables h4{margin-bottom:15px}
+.investor-deliverables ul{padding-left:20px;margin:0 0 18px;color:var(--muted);font-size:.9rem}
+.investor-deliverables li+li{margin-top:8px}
+.investor-deliverables p.fine-print{font-size:.78rem}
+.investor-deliverables .btn{margin-top:20px}
+@media(max-width:760px){.investor-service{grid-template-columns:1fr;gap:28px;padding:24px}}

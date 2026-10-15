@@ -77,6 +77,10 @@
         "Financial services & investment",
         "Research relevant businesses, decision-makers and potential clients or partners for financing, lending and investment firms, then support outreach, follow-ups and meeting coordination."
     ],
+    "healthcare": [
+        "Healthcare & healthtech",
+        "Research relevant healthcare organizations, business buyers and decision-makers for healthtech, medical products and healthcare services. Support targeted outreach, meeting coordination and product-demo bookings with your team."
+    ],
     "property": [
         "Real estate & other sectors",
         "Identify relevant prospects, businesses and partners for property services and other sectors, with research and outreach shaped around your offer and target audience."
