@@ -55,16 +55,17 @@ def build(c):
     styles['CaseBody'].fontSize = 9.2 if c['category']=='client' else 9.8
     styles['CaseBody'].leading = 12 if c['category']=='client' else 14
     styles['CaseBody'].spaceAfter = 4 if c['category']=='client' else 8
+    styles['CaseHeading'].spaceBefore = 8 if c['slug']=='sokoldev-business-research' else 12
     path=ROOT/'assets/documents'/c['pdf']
     doc=SimpleDocTemplate(str(path),pagesize=A4,leftMargin=42,rightMargin=42,topMargin=53,bottomMargin=50,title=c['short'],author='Furqan Ahmad',subject=c['description'])
     width=A4[0]-84
     story=[p(c['kind'].upper()+' / '+c['date'],'Kicker'),p(c['title'],'CaseTitle'),p(c['description'],'LeadText')]
     cells=[[p(v,'MetricValue'),p(label,'SmallText')] for v,label in c['metrics']]
-    metric=Table([cells[i:i+3] for i in range(0,len(cells),3)],colWidths=[width/3]*3)
-    metric.setStyle(TableStyle([('VALIGN',(0,0),(-1,-1),'TOP'),('BACKGROUND',(0,0),(-1,-1),SOFT),('LEFTPADDING',(0,0),(-1,-1),12),('RIGHTPADDING',(0,0),(-1,-1),12),('TOPPADDING',(0,0),(-1,-1),12),('BOTTOMPADDING',(0,0),(-1,-1),10)]))
-    story += [metric,Spacer(1,10),p('The short version','CaseHeading'),p(c['summary'])]
+    metric=Table([cells[i:i+3] for i in range(0,len(cells),3)],colWidths=[width/3]*3) if cells else None
+    if metric: metric.setStyle(TableStyle([('VALIGN',(0,0),(-1,-1),'TOP'),('BACKGROUND',(0,0),(-1,-1),SOFT),('LEFTPADDING',(0,0),(-1,-1),12),('RIGHTPADDING',(0,0),(-1,-1),12),('TOPPADDING',(0,0),(-1,-1),12),('BOTTOMPADDING',(0,0),(-1,-1),10)]))
+    story += ([metric,Spacer(1,10)] if metric else []) + [p('The short version','CaseHeading'),p(c['summary'])]
     for i,(title,paras) in enumerate(c['sections']):
-        if c['category']=='client' and i==2: story.append(PageBreak())
+        if c['slug']=='alpharose-investor-research' and i==2: story.append(PageBreak())
         story.append(p(title,'CaseHeading'))
         story += [p(text) for text in paras]
         if i==2 and c.get('table'):

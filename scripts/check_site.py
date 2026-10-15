@@ -41,7 +41,7 @@ for path,tree in pages.items():
         require('noopener' in anchor.get('rel',''),f'{name}: unsafe external target')
 
 home=pages[ROOT/'index.html']
-require(len(home.xpath('//*[@class="work-card"]'))==4,'Expected four case studies')
+require(len(home.xpath('//*[@class="work-card"]'))==5,'Expected five case studies')
 require(all('hidden' not in card.attrib for card in home.xpath('//*[@class="work-card"]')),'Case studies must work without JS')
 require(bool(home.xpath('//noscript//a[starts-with(@href,"mailto:")]')),'Missing no-JS contact path')
 require(not home.xpath('//form[@action]'),'Form must not submit to a server')
@@ -52,7 +52,7 @@ for c in CASES:
     txt=subprocess.check_output(['pdftotext',str(pdf),'-'],text=True)
     require('Sources & scope' in txt,f'{pdf.name}: missing evidence explanation')
     require('before publishing' not in txt.lower(),f'{pdf.name}: publishing instructions')
-    if c['category']=='client':
+    if c['slug']=='alpharose-investor-research':
         require(all(v in txt for v in ['923','434','210','314','62','23','not ultimately held']),'AlphaRose PDF evidence missing')
     require('thisisfurqanahmad@gmail.com' in txt,f'{pdf.name}: missing contact')
 
@@ -63,4 +63,4 @@ public='\n'.join(p.read_text() for p in pages)
 require('docs.google.com/spreadsheets' not in public,'Private CRM link leaked')
 require(set(re.findall(r'[\w.+-]+@[\w.-]+\.[a-zA-Z]{2,}',public))=={'thisisfurqanahmad@gmail.com'},'Unexpected email address in public pages')
 if errors:raise SystemExit('\n'.join(errors))
-print(f'PASS: {len(pages)} HTML pages, {links} internal links/assets/anchors, four PDF reports, metadata and privacy checks.')
+print(f'PASS: {len(pages)} HTML pages, {links} internal links/assets/anchors, five PDF reports, metadata and privacy checks.')

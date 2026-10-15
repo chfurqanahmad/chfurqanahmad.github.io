@@ -77,9 +77,9 @@ class Element {
  await toggle.fire('click');await doc.fire('click',{target:q('h1')});assert.equal(toggle.getAttribute('aria-expanded'),'false');
  await toggle.fire('click');win.innerWidth=1200;await win.fire('resize');assert(!menu.classList.contains('is-open'));
  const filters=all('[data-filter]');
- await filters[1].fire('click');assert.equal(all('.work-card').filter(e=>!e.hidden).length,1);assert.equal(q('[data-filter-count]').textContent,'1 case study');
+ await filters[1].fire('click');assert.equal(all('.work-card').filter(e=>!e.hidden).length,2);assert.equal(q('[data-filter-count]').textContent,'2 case studies');
  await filters[2].fire('click');assert.equal(all('.work-card').filter(e=>!e.hidden).length,3);
- await filters[0].fire('click');assert.equal(all('.work-card').filter(e=>!e.hidden).length,4);
+ await filters[0].fire('click');assert.equal(all('.work-card').filter(e=>!e.hidden).length,5);
  const audiences=all('[data-audience]');await audiences[1].fire('click');assert.equal(q('#audience-detail').querySelector('h4').textContent,'Corporate training providers');
  assert.equal(audiences.filter(e=>e.getAttribute('aria-pressed')==='true').length,1);
  await q('[data-copy-email]').fire('click');assert.equal(copied,'thisisfurqanahmad@gmail.com');assert.equal(q('[data-copy-status]').textContent,'Email address copied.');
