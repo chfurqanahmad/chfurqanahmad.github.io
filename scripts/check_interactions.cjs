@@ -80,7 +80,14 @@ class Element {
  await filters[1].fire('click');assert.equal(all('.work-card').filter(e=>!e.hidden).length,2);assert.equal(q('[data-filter-count]').textContent,'2 case studies');
  await filters[2].fire('click');assert.equal(all('.work-card').filter(e=>!e.hidden).length,3);
  await filters[0].fire('click');assert.equal(all('.work-card').filter(e=>!e.hidden).length,5);
- const audiences=all('[data-audience]');await audiences[1].fire('click');assert.equal(q('#audience-detail').querySelector('h4').textContent,'Corporate training providers');
+ const audiences=all('[data-audience]');
+ assert.equal(audiences.length,5);
+ for (const button of audiences) {
+   await button.fire('click');
+   assert.equal(q('#audience-detail').querySelector('h4').textContent,button.textContent);
+   assert(q('#audience-detail').querySelector('p').textContent.length>40);
+   assert.equal(audiences.filter(e=>e.getAttribute('aria-pressed')==='true').length,1);
+ }
  assert.equal(audiences.filter(e=>e.getAttribute('aria-pressed')==='true').length,1);
  await q('[data-copy-email]').fire('click');assert.equal(copied,'thisisfurqanahmad@gmail.com');assert.equal(q('[data-copy-status]').textContent,'Email address copied.');
  navigator.clipboard=null;await q('[data-copy-email]').fire('click');assert(q('[data-copy-status]').textContent.includes('Select and copy'));

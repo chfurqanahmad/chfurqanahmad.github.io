@@ -61,10 +61,27 @@
   }));
 
   const audiences = {
-    recruitment: ['Recruitment & executive search', 'Research employers, relevant hiring activity and decision-makers for your specialty. Support conversations about your recruitment service.', 'Focus the research on your hiring specialty, target employers and relevant decision-makers.'],
-    training: ['Corporate training providers', 'Identify relevant employers, learning leaders and business teams for your specific training offer. Add company context and coordinate tailored outreach.', 'Agree on the program, ideal employer profile and buyer role before expanding the research.'],
-    consulting: ['Specialist B2B consultancies', 'Find companies facing the specific problem your service addresses. Research decision-makers, document the reason for fit and support relevant conversations.', 'A focused specialty makes the research and message more useful than a broad list of businesses.']
-  };
+    "technology": [
+        "SaaS & technology",
+        "Find relevant business buyers and decision-makers for SaaS products, IT services, software development and automation."
+    ],
+    "products": [
+        "Product businesses",
+        "Research potential business buyers, retailers, distributors and partners for physical products and brands."
+    ],
+    "services": [
+        "Agencies & professional services",
+        "Identify prospective clients for marketing, design, photography, consulting, recruitment, training and other professional services."
+    ],
+    "finance": [
+        "Financial services & investment",
+        "Research relevant businesses, decision-makers and potential clients or partners for financing, lending and investment firms, then support outreach, follow-ups and meeting coordination."
+    ],
+    "property": [
+        "Real estate & other sectors",
+        "Identify relevant prospects, businesses and partners for property services and other sectors, with research and outreach shaped around your offer and target audience."
+    ]
+};
   const audienceButtons = [...doc.querySelectorAll('[data-audience]')];
   const audienceDetail = doc.querySelector('#audience-detail');
   audienceButtons.forEach(button => button.addEventListener('click', () => {
@@ -74,7 +91,6 @@
     audienceDetail.querySelector('h4').textContent = entry[0];
     const paragraphs = audienceDetail.querySelectorAll('p');
     paragraphs[0].textContent = entry[1];
-    paragraphs[1].textContent = entry[2];
   }));
 
   const copy = doc.querySelector('[data-copy-email]');
