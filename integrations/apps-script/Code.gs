@@ -38,10 +38,10 @@ function doPost(e) {
     if (globalCount >= 30 || emailCount >= 5) return json_({ok: false, error: 'rate_limited'});
     const row = last + 1;
     if (row > sheet.getMaxRows()) sheet.insertRowsAfter(sheet.getMaxRows(), 100);
-    // Rich-text writes preserve literal text, including leading '='; no user value becomes a formula.
-    const textValues = input.values.concat(input.submissionId).map(value => SpreadsheetApp.newRichTextValue().setText(value).build());
+    // Leading apostrophes force literal text in Sheets and are not displayed.
+    const textValues = input.values.concat(input.submissionId).map(value => "'" + value);
     sheet.getRange(row, 1).setValue(new Date()).setNumberFormat('yyyy-mm-dd hh:mm:ss');
-    sheet.getRange(row, 2, 1, 6).setRichTextValues([textValues]);
+    sheet.getRange(row, 2, 1, 6).setValues([textValues]);
     sheet.getRange(row, 1, 1, 7).setFontFamily('Arial').setFontSize(10).setVerticalAlignment('top');
     sheet.getRange(row, 6).setWrap(true);
     SpreadsheetApp.flush();
