@@ -41,3 +41,10 @@
 .audience-detail-panel>.btn{margin-top:22px}
 @media(max-width:1000px){.audience-panel{grid-template-columns:1fr;gap:25px}}
 @media(max-width:600px){.audience-columns{grid-template-columns:1fr;gap:20px}.audience-detail-panel h4{font-size:1.3rem}}
+
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.form-row>div{min-width:0}
+.form-trap{position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden}
+#brief-status:not(:empty){margin-top:18px;font-size:.9rem}
+#brief-submit{margin-top:20px}
+@media(max-width:600px){.form-row{grid-template-columns:1fr;gap:0}}

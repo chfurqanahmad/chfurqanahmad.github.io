@@ -83,28 +83,51 @@
   });
 
   const form = doc.querySelector('#project-brief');
-  if (form) form.addEventListener('submit', event => {
-    event.preventDefault();
-    if (!form.reportValidity()) return;
-    const service = doc.querySelector('#brief-service').value;
-    const company = doc.querySelector('#brief-company').value.trim();
-    const goal = doc.querySelector('#brief-goal');
-    if (!goal.value.trim()) {
-      goal.setCustomValidity('Please describe your project goal.');
-      goal.reportValidity();
-      goal.addEventListener('input', () => goal.setCustomValidity(''), { once: true });
-      return;
-    }
-    const subject = `Project enquiry: ${service}`;
-    const body = `Hi Furqan,\n\nI’m interested in: ${service}\n${company ? `Name or company: ${company}\n` : ''}\nMy goal:\n${goal.value.trim()}\n\nPlease let me know what you need to scope this project.\n\nThank you${company ? `,\n${company}` : '.'}`;
-    doc.querySelector('#brief-mail').href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    doc.querySelector('#brief-gmail').href = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(email)}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    doc.querySelector('#brief-preview').textContent = `Subject: ${subject}\n\n${body}`;
-    const result = doc.querySelector('#brief-result');
-    result.hidden = false;
-    const status = result.querySelector('.brief-status');
-    status.setAttribute('tabindex', '-1');
-    status.focus();
-  });
+  if (form) {
+    const fields = ['name', 'company', 'email', 'subject', 'goal'].map(key => doc.querySelector('#brief-' + key));
+    const submit = doc.querySelector('#brief-submit');
+    const status = doc.querySelector('#brief-status');
+    let busy = false;
+    let attempt = null;
+    fields.forEach(field => field.addEventListener('input', () => field.setCustomValidity('')));
+    form.addEventListener('submit', async event => {
+      event.preventDefault();
+      if (busy) return;
+      fields.forEach(field => field.setCustomValidity(field.value.trim() ? '' : 'Please complete this field.'));
+      if (!form.reportValidity()) return;
+      if (!form.dataset.endpoint) {
+        status.textContent = 'Online enquiries are not available yet. Please email thisisfurqanahmad@gmail.com.';
+        status.focus();
+        return;
+      }
+      const values = Object.fromEntries(fields.map(field => [field.name || field.getAttribute('name'), field.value.trim()]));
+      const fingerprint = JSON.stringify(values);
+      if (!attempt || attempt.fingerprint !== fingerprint) attempt = { fingerprint, id: crypto.randomUUID() };
+      const payload = new URLSearchParams({ ...values, submissionId: attempt.id, website: doc.querySelector('#brief-website').value });
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 20000);
+      busy = true;
+      submit.disabled = true;
+      submit.textContent = 'Sending…';
+      status.textContent = 'Sending your enquiry…';
+      try {
+        const response = await fetch(form.dataset.endpoint, { method: 'POST', body: payload, signal: controller.signal, credentials: 'omit', redirect: 'follow' });
+        if (!response.ok) throw new Error('Request failed');
+        const result = await response.json();
+        if (result.ok !== true || result.submissionId !== attempt.id) throw new Error('Receipt not confirmed');
+        status.textContent = 'Thank you — your enquiry has been received. I’ll review your requirements and follow up to discuss a suitable scope.';
+        form.reset();
+        attempt = null;
+      } catch (_) {
+        status.textContent = 'I couldn’t confirm receipt. Your details are still here. Please retry, or email thisisfurqanahmad@gmail.com.';
+      } finally {
+        clearTimeout(timeout);
+        busy = false;
+        submit.disabled = false;
+        submit.textContent = 'Send enquiry ↗';
+        status.focus();
+      }
+    });
+  }
   doc.querySelectorAll('[data-enhanced]').forEach(el => { el.hidden = false; });
 })();
