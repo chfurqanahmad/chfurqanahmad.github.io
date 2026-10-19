@@ -60,42 +60,15 @@
     if (output) output.textContent = `${count} case ${count === 1 ? 'study' : 'studies'}`;
   }));
 
-  const audiences = {
-    "technology": [
-        "SaaS & technology",
-        "Find relevant business buyers and decision-makers for SaaS products, IT services, software development and automation."
-    ],
-    "products": [
-        "Product businesses",
-        "Research potential business buyers, retailers, distributors and partners for physical products and brands."
-    ],
-    "services": [
-        "Agencies & professional services",
-        "Identify prospective clients for marketing, design, photography, consulting, recruitment, training and other professional services."
-    ],
-    "finance": [
-        "Financial services & investment",
-        "Research relevant businesses, decision-makers and potential clients or partners for financing, lending and investment firms, then support outreach, follow-ups and meeting coordination."
-    ],
-    "healthcare": [
-        "Healthcare & healthtech",
-        "Research relevant healthcare organizations, business buyers and decision-makers for healthtech, medical products and healthcare services. Support targeted outreach, meeting coordination and product-demo bookings with your team."
-    ],
-    "property": [
-        "Real estate & other sectors",
-        "Identify relevant prospects, businesses and partners for property services and other sectors, with research and outreach shaped around your offer and target audience."
-    ]
-};
   const audienceButtons = [...doc.querySelectorAll('[data-audience]')];
-  const audienceDetail = doc.querySelector('#audience-detail');
-  audienceButtons.forEach(button => button.addEventListener('click', () => {
-    const entry = audiences[button.dataset.audience];
-    if (!entry || !audienceDetail) return;
-    audienceButtons.forEach(item => item.setAttribute('aria-pressed', String(item === button)));
-    audienceDetail.querySelector('h4').textContent = entry[0];
-    const paragraphs = audienceDetail.querySelectorAll('p');
-    paragraphs[0].textContent = entry[1];
-  }));
+  const audiencePanels = [...doc.querySelectorAll('[data-audience-panel]')];
+  const showAudience = key => {
+    if (!audiencePanels.some(panel => panel.dataset.audiencePanel === key)) return;
+    audienceButtons.forEach(button => button.setAttribute('aria-pressed', String(button.dataset.audience === key)));
+    audiencePanels.forEach(panel => { panel.hidden = panel.dataset.audiencePanel !== key; });
+  };
+  audienceButtons.forEach(button => button.addEventListener('click', () => showAudience(button.dataset.audience)));
+  if (audienceButtons.length) showAudience(audienceButtons[0].dataset.audience);
 
   const copy = doc.querySelector('[data-copy-email]');
   const copyStatus = doc.querySelector('[data-copy-status]');

@@ -81,11 +81,17 @@ class Element {
  await filters[2].fire('click');assert.equal(all('.work-card').filter(e=>!e.hidden).length,3);
  await filters[0].fire('click');assert.equal(all('.work-card').filter(e=>!e.hidden).length,5);
  const audiences=all('[data-audience]');
- assert.equal(audiences.length,6);
+ assert.equal(audiences.length,7);
  for (const button of audiences) {
    await button.fire('click');
-   assert.equal(q('#audience-detail').querySelector('h4').textContent,button.textContent);
-   assert(q('#audience-detail').querySelector('p').textContent.length>40);
+   const panels=all('[data-audience-panel]');
+   const visible=panels.filter(p=>!p.hidden);
+   assert.equal(visible.length,1);
+   assert.equal(visible[0].dataset.audiencePanel,button.dataset.audience);
+   assert.equal(button.getAttribute('aria-controls'),visible[0].attrs.id);
+   assert.equal(visible[0].querySelectorAll('li').length,6);
+   assert.equal(visible[0].querySelector('.btn').href,'#contact');
+   assert(visible[0].querySelector('.text-link').href.startsWith('/projects/'));
    assert.equal(audiences.filter(e=>e.getAttribute('aria-pressed')==='true').length,1);
  }
  assert.equal(audiences.filter(e=>e.getAttribute('aria-pressed')==='true').length,1);

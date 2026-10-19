@@ -27,13 +27,17 @@
 @media(prefers-reduced-motion:reduce){.email-copy{transition:none}}
 @media print{.email-copy{display:none!important}}
 
-.investor-service{display:grid;grid-template-columns:1.15fr 1fr;gap:48px;padding:36px;margin-top:32px;border:1px solid var(--line);border-radius:var(--radius);background:white}
-.investor-service h3{margin:12px 0 18px;font-size:1.8rem}
-.investor-service p{font-size:.94rem;color:var(--muted)}
-.investor-service .text-link{margin-top:20px;font-size:.86rem;color:var(--teal)}
-.investor-deliverables h4{margin-bottom:15px}
-.investor-deliverables ul{padding-left:20px;margin:0 0 18px;color:var(--muted);font-size:.9rem}
-.investor-deliverables li+li{margin-top:8px}
-.investor-deliverables p.fine-print{font-size:.78rem}
-.investor-deliverables .btn{margin-top:20px}
-@media(max-width:760px){.investor-service{grid-template-columns:1fr;gap:28px;padding:24px}}
+
+.audience-intro{margin-top:18px;color:var(--muted)}
+.audience-detail-panel h4{font-size:1.5rem;line-height:1.25;margin-top:10px}
+.audience-detail-panel+.audience-detail-panel{margin-top:32px}
+.audience-columns{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:24px}
+.audience-columns h5{font-size:.9rem;margin:0 0 10px}
+.audience-columns ul{padding-left:19px;margin:0;font-size:.85rem;color:var(--muted)}
+.audience-columns li+li{margin-top:9px}
+.audience-proof{border-top:1px solid var(--line);margin-top:24px;padding-top:18px}
+.audience-proof p{font-size:.8rem;color:var(--muted)}
+.audience-proof .text-link{font-size:.82rem;margin-top:12px}
+.audience-detail-panel>.btn{margin-top:22px}
+@media(max-width:1000px){.audience-panel{grid-template-columns:1fr;gap:25px}}
+@media(max-width:600px){.audience-columns{grid-template-columns:1fr;gap:20px}.audience-detail-panel h4{font-size:1.3rem}}
