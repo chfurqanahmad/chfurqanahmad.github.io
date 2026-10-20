@@ -4,7 +4,13 @@
 const ACK_HEADERS = ['Submission ID', 'Recipient', 'Status', 'Updated at', 'Note'];
 const ACK_REPLY_TO = 'thisisfurqanahmad@gmail.com';
 const ACK_SUBJECT = 'Thanks for getting in touch | Furqan Ahmad';
-const ACK_BODY = "Hi there,\n\nThanks for getting in touch and sharing your project. Your enquiry has reached me, and I’ll review the details before getting back to you about the next steps.\n\nIf there’s anything you’d like to add, simply reply to this email.\n\nBest,\nFurqan Ahmad\nhttps://furqanahmad.com\n\nThis is an automatic acknowledgement of a website enquiry. If you didn’t submit one, you can ignore this email.";
+function acknowledgementBody_(name, subject) {
+  const clean = (value, limit) => String(value || '').replace(/[\u0000-\u001f\u007f]/g, ' ').replace(/\s+/g, ' ').trim().slice(0, limit);
+  const clientName = clean(name, 100) || 'there';
+  const enquirySubject = clean(subject, 160);
+  const topic = enquirySubject ? ' about “' + enquirySubject + '”' : '';
+  return 'Hi ' + clientName + ',\n\nI hope you’re doing well. Thank you for your enquiry' + topic + '. I’ll review the details, prepare a proposed scope, and get back to you shortly.\n\nBest,\nFurqan Ahmad';
+}
 
 function setupEnquiryAcknowledgements() {
   const book = notificationBook_();
@@ -16,7 +22,7 @@ function setupEnquiryAcknowledgements() {
   if (!exists) ScriptApp.newTrigger('sendEnquiryAcknowledgements').timeBased().everyMinutes(5).create();
   if (props.getProperty('ACK_SETUP_SENT') !== 'yes') {
     MailApp.sendEmail({to: ACK_REPLY_TO, subject: 'Website acknowledgements enabled',
-      body: 'New website enquiries will receive the following acknowledgement, normally within five minutes. Repeat addresses are limited to one acknowledgement per 24 hours.\n\nSubject: ' + ACK_SUBJECT + '\n\n' + ACK_BODY,
+      body: 'New website enquiries will receive the following acknowledgement, normally within five minutes. Repeat addresses are limited to one acknowledgement per 24 hours.\n\nSubject: ' + ACK_SUBJECT + '\n\n' + acknowledgementBody_('[Name]', '[Subject]'),
       name: 'Furqan Ahmad Website'});
     props.setProperty('ACK_SETUP_SENT', 'yes');
   }
@@ -70,8 +76,8 @@ function sendEnquiryAcknowledgements(submissionId) {
       SpreadsheetApp.flush();
       let sent = false;
       try {
-        // Fixed copy: never echo untrusted enquiry content into an automatic email.
-        MailApp.sendEmail({to: email, subject: ACK_SUBJECT, body: ACK_BODY, name: 'Furqan Ahmad', replyTo: ACK_REPLY_TO});
+        // Personalize only the greeting and enquiry topic, as plain text.
+        MailApp.sendEmail({to: email, subject: ACK_SUBJECT, body: acknowledgementBody_(r[1], r[4]), name: 'Furqan Ahmad', replyTo: ACK_REPLY_TO});
         sent = true; remaining--;
         acknowledgementRecord_(log, logRow, id, email, 'Sent', '');
         SpreadsheetApp.flush();
