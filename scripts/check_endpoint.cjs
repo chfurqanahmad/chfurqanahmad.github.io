@@ -38,5 +38,8 @@ failWrite=true;assert.equal(context.doPost(event({...valid,submissionId:crypto.r
 assert.equal(context.doPost(event({...valid,goal:' '.repeat(4)})).ok,false);
 assert.equal(context.doPost({...event(valid),parameters:{name:['one','two']}}).ok,false);
 failEmail=true;const emailFailureId=crypto.randomUUID();assert.equal(context.doPost(event({...valid,submissionId:emailFailureId})).ok,true);assert.equal(emailOrder.at(-1),'owner:'+emailFailureId);assert.equal(rows.at(-1)[6],emailFailureId);
+failEmail=false;const twoPhase={...valid,company:'',submissionId:crypto.randomUUID(),action:'save'};const beforeEmail=emailOrder.length;const beforeRows=rows.length;
+assert.equal(context.doPost(event(twoPhase)).ok,true);assert.equal(rows.length,beforeRows+1);assert.equal(rows.at(-1)[2],'');assert.equal(emailOrder.length,beforeEmail);
+assert.equal(context.doPost(event({...twoPhase,action:'deliver'})).ok,true);assert.equal(rows.length,beforeRows+1);assert.deepEqual(emailOrder.slice(beforeEmail),['owner:'+twoPhase.submissionId,'client:'+twoPhase.submissionId]);
 assert.equal(context.doGet().service,'website-enquiries');
 console.log('PASS: input rejection, literal text write path, duplicate receipt, conflicting retry, failed write and lock release. Live Google verification still required.');

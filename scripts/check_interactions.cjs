@@ -20,7 +20,7 @@ class Element {
     this.tag = raw.tag; this.attrs = {...raw.attrs}; this.textContent = raw.text;
     this.parent = parent; this.events = {}; this.validityMessage = '';
     this.children = raw.children.map(c => new Element(c, this));
-    this.value = this.attrs.value || (this.tag === 'select' ? this.children[0].textContent : '');
+    this.value = this.attrs.value || (this.tag === 'select' ? (this.children[0].attrs.value ?? this.children[0].textContent) : '');
     this.classList = {
       contains: c => (this.attrs.class || '').split(' ').includes(c),
       add: c => this.classList.toggle(c, true),
@@ -56,7 +56,7 @@ class Element {
     for(const entry of [...(this.events[type]||[])]) {await entry.fn(event);if(entry.once)this.events[type]=this.events[type].filter(e=>e!==entry);}
     return event;
   }
-  reset() { this.all().filter(e=>['input','textarea'].includes(e.tag)).forEach(e=>{e.value='';}); }
+  reset() { this.all().filter(e=>['input','textarea','select'].includes(e.tag)).forEach(e=>{e.value='';}); }
   focus() { active=this; }
   setCustomValidity(v) { this.validityMessage=v; }
   reportValidity() { return this.tag==='form' ? this.all().every(e=>e.reportValidity()) : !this.validityMessage && (!('required' in this.attrs) || !!this.value); }
@@ -67,8 +67,8 @@ class Element {
  doc.children=[html];doc.documentElement=html;doc.getElementById=id=>doc.querySelector('#'+id);
  const win=new Element({tag:'window',attrs:{},text:'',children:[]});win.innerWidth=375;
  let copied='';const navigator={clipboard:{writeText:async text=>{copied=text}}};
- let calls=[];let mode='success';let release;
- const fetch=async (url,options)=>{calls.push(options.body);if(mode==='pending')await new Promise(r=>{release=r});if(mode==='failure')throw new Error('offline');return {ok:true,json:async()=>({ok:true,submissionId:mode==='wrong-receipt'?'wrong':options.body.get('submissionId')})};};
+ let calls=[];let deliveryCalls=[];let mode='success';let release;
+ const fetch=async (url,options)=>{if(options.body.get('action')==='deliver'){deliveryCalls.push(options);return new Promise(()=>{});}calls.push(options.body);if(mode==='pending')await new Promise(r=>{release=r});if(mode==='failure')throw new Error('offline');return {ok:true,json:async()=>({ok:true,submissionId:mode==='wrong-receipt'?'wrong':options.body.get('submissionId')})};};
  vm.runInNewContext(fs.readFileSync(path.join(root,'assets/js/main.js'),'utf8'),{document:doc,window:win,navigator,Date,Error,encodeURIComponent,crypto:require('node:crypto').webcrypto,URLSearchParams,AbortController,setTimeout,clearTimeout,fetch});
  const q=s=>doc.querySelector(s), all=s=>doc.querySelectorAll(s);
  assert(all('[data-enhanced]').every(e=>!e.hidden));
@@ -101,16 +101,18 @@ class Element {
  await q('[data-copy-email]').fire('click');assert.equal(copied,'thisisfurqanahmad@gmail.com');assert.equal(q('[data-copy-status]').textContent,'Email address copied.');
  navigator.clipboard=null;await q('[data-copy-email]').fire('click');assert(q('[data-copy-status]').textContent.includes('Select and copy'));
  const form=q('#project-brief'),goal=q('#brief-goal'),status=q('#brief-status');
+ assert.equal(q('#brief-company').getAttribute('required'),null);assert.equal(q('#brief-subject').tag,'select');assert(q('#brief-subject').children.length>=8);
  assert((await form.fire('submit')).defaultPrevented);assert.equal(calls.length,0);
- const fill=()=>{for(const [key,value] of Object.entries({name:'Test Sender',company:'Example Co',email:'test@example.com',subject:'Research & outreach',goal:'Find business buyers'}))q('#brief-'+key).value=value;};
+ const fill=()=>{for(const [key,value] of Object.entries({name:'Test Sender',company:'',email:'test@example.com',subject:'Prospect research & lead generation',goal:'Find business buyers'}))q('#brief-'+key).value=value;};
  fill();goal.value='   ';await form.fire('submit');assert.equal(calls.length,0);assert(goal.validityMessage);
  form.setAttribute('data-endpoint','');fill();await form.fire('submit');assert(status.textContent.includes('not available'));assert.equal(calls.length,0);
  form.setAttribute('data-endpoint','https://example.com/test-only');
  mode='failure';await form.fire('submit');assert(status.textContent.includes('couldn’t confirm'));assert.equal(goal.value,'Find business buyers');
+ assert.equal(deliveryCalls.length,0);assert.equal(calls[0].get('company'),'');assert.equal(calls[0].get('action'),'save');
  const retryId=calls[0].get('submissionId');
  mode='wrong-receipt';await form.fire('submit');assert.equal(calls[1].get('submissionId'),retryId);assert(goal.value);
  mode='pending';const pending=form.fire('submit');const count=calls.length;await form.fire('submit');assert.equal(calls.length,count);assert(q('#brief-submit').disabled);release();await pending;
- assert(status.textContent.includes('has been received'));assert.equal(goal.value,'');assert(!q('#brief-submit').disabled);
+ assert.equal(deliveryCalls.length,1);assert.equal(deliveryCalls[0].body.get('submissionId'),retryId);assert.equal(deliveryCalls[0].keepalive,true);assert(status.textContent.includes('has been received'));assert.equal(goal.value,'');assert(!q('#brief-submit').disabled);
  fill();mode='success';await form.fire('submit');assert.notEqual(calls.at(-1).get('submissionId'),retryId);
  assert.equal(q('[data-current-year]').textContent,new Date().getFullYear());
  console.log('PASS: navigation state/focus, filters, audience switching, clipboard fallback, required fields, endpoint guard, failed/uncertain receipt, retry identity, double-submit prevention and confirmed success.');

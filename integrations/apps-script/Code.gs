@@ -7,7 +7,7 @@ function doGet() {
 
 function doPost(e) {
   const result = saveEnquiry_(e);
-  if (result.ok === true) {
+  if (result.ok === true && String((e.parameter || {}).action || '') !== 'save') {
     try {
       // The row has been flushed and its save lock released before any email.
       sendEnquiryNotifications(result.submissionId);
@@ -78,7 +78,7 @@ function validate_(e) {
   const values = Object.keys(limits).map(key => {
     if (e.parameters && e.parameters[key] && e.parameters[key].length !== 1) throw new Error('Duplicate field');
     const value = String(p[key] || '').trim();
-    if (!value || value.length > limits[key] || /[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f]/.test(value)) throw new Error('Invalid field');
+    if ((!value && key !== 'company') || value.length > limits[key] || /[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f]/.test(value)) throw new Error('Invalid field');
     if (key !== 'goal' && /[\r\n]/.test(value)) throw new Error('Invalid field');
     return value;
   });

@@ -93,7 +93,7 @@
     form.addEventListener('submit', async event => {
       event.preventDefault();
       if (busy) return;
-      fields.forEach(field => field.setCustomValidity(field.value.trim() ? '' : 'Please complete this field.'));
+      fields.forEach(field => field.setCustomValidity(field.getAttribute('required') === null || field.value.trim() ? '' : 'Please complete this field.'));
       if (!form.reportValidity()) return;
       if (!form.dataset.endpoint) {
         status.textContent = 'Online enquiries are not available yet. Please email thisisfurqanahmad@gmail.com.';
@@ -103,19 +103,23 @@
       const values = Object.fromEntries(fields.map(field => [field.name || field.getAttribute('name'), field.value.trim()]));
       const fingerprint = JSON.stringify(values);
       if (!attempt || attempt.fingerprint !== fingerprint) attempt = { fingerprint, id: crypto.randomUUID() };
-      const payload = new URLSearchParams({ ...values, submissionId: attempt.id, website: doc.querySelector('#brief-website').value });
+      const payload = new URLSearchParams({ ...values, action: 'save', submissionId: attempt.id, website: doc.querySelector('#brief-website').value });
       const controller = new AbortController();
       const timeout = setTimeout(() => controller.abort(), 60000);
       busy = true;
       submit.disabled = true;
       submit.textContent = 'Sending…';
-      status.textContent = 'Sending your enquiry…';
+      status.textContent = 'Saving your enquiry…';
       try {
         const response = await fetch(form.dataset.endpoint, { method: 'POST', body: payload, signal: controller.signal, credentials: 'omit', redirect: 'follow' });
         if (!response.ok) throw new Error('Request failed');
         const result = await response.json();
         if (result.ok !== true || result.submissionId !== attempt.id) throw new Error('Receipt not confirmed');
         status.textContent = 'Thank you — your enquiry has been received. I’ll review your requirements and follow up to discuss a suitable scope.';
+        // The receipt confirms storage. Email delivery proceeds separately, owner first.
+        const delivery = new URLSearchParams(payload);
+        delivery.set('action', 'deliver');
+        fetch(form.dataset.endpoint, { method: 'POST', body: delivery, credentials: 'omit', redirect: 'follow', keepalive: true }).catch(() => {});
         form.reset();
         attempt = null;
       } catch (_) {
