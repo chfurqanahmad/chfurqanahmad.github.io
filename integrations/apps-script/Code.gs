@@ -1,4 +1,4 @@
-/* Website enquiries: append-only public endpoint. No email is sent by this version. */
+/* Save enquiries first, then notify owner before acknowledging the client. */
 const HEADERS = ['Received at (Chicago)', 'Name', 'Company', 'Email', 'Subject', 'Goal', 'Submission ID'];
 
 function doGet() {
@@ -6,11 +6,26 @@ function doGet() {
 }
 
 function doPost(e) {
+  const result = saveEnquiry_(e);
+  if (result.ok === true) {
+    try {
+      // The row has been flushed and its save lock released before any email.
+      sendEnquiryNotifications(result.submissionId);
+      sendEnquiryAcknowledgements(result.submissionId);
+    } catch (_) {
+      // Keep the saved-row receipt valid. Scheduled jobs retry unsent emails.
+      console.error('Enquiry saved; email processing requires the scheduled retry.');
+    }
+  }
+  return json_(result);
+}
+
+function saveEnquiry_(e) {
   let lock;
   try {
     const input = validate_(e);
     lock = LockService.getScriptLock();
-    if (!lock.tryLock(10000)) return json_({ok: false, error: 'busy'});
+    if (!lock.tryLock(10000)) return {ok: false, error: 'busy'};
     const id = PropertiesService.getScriptProperties().getProperty('SPREADSHEET_ID');
     if (!id) throw new Error('Not configured');
     const sheet = SpreadsheetApp.openById(id).getSheetByName('Enquiries');
@@ -22,8 +37,8 @@ function doPost(e) {
       const prior = sheet.getRange(2, 7, last - 1, 1).createTextFinder(input.submissionId).matchEntireCell(true).findNext();
       if (prior) {
         const saved = sheet.getRange(prior.getRow(), 2, 1, 5).getDisplayValues()[0];
-        if (saved.some((value, i) => value !== input.values[i])) return json_({ok: false, error: 'conflicting_request'});
-        return json_({ok: true, submissionId: input.submissionId});
+        if (saved.some((value, i) => value !== input.values[i])) return {ok: false, error: 'conflicting_request'};
+        return {ok: true, submissionId: input.submissionId};
       }
     }
     // Simple quota protection; not a substitute for CAPTCHA under sustained abuse.
@@ -35,7 +50,7 @@ function doPost(e) {
     const emailKey = 'email:' + hour + ':' + hash;
     const globalCount = Number(cache.get(globalKey) || 0);
     const emailCount = Number(cache.get(emailKey) || 0);
-    if (globalCount >= 30 || emailCount >= 5) return json_({ok: false, error: 'rate_limited'});
+    if (globalCount >= 30 || emailCount >= 5) return {ok: false, error: 'rate_limited'};
     const row = last + 1;
     if (row > sheet.getMaxRows()) sheet.insertRowsAfter(sheet.getMaxRows(), 100);
     // Leading apostrophes force literal text in Sheets and are not displayed.
@@ -47,9 +62,9 @@ function doPost(e) {
     SpreadsheetApp.flush();
     cache.put(globalKey, String(globalCount + 1), 120);
     cache.put(emailKey, String(emailCount + 1), 3600);
-    return json_({ok: true, submissionId: input.submissionId});
+    return {ok: true, submissionId: input.submissionId};
   } catch (_) {
-    return json_({ok: false, error: 'unable_to_save'});
+    return {ok: false, error: 'unable_to_save'};
   } finally {
     if (lock && lock.hasLock()) lock.releaseLock();
   }

@@ -1,3 +1,5 @@
+> Update 20 October: the initial scheduled version was activated and verified in the delivery logs. Updated scripts now support immediate dispatch from doPost and require a matching Sent owner-notification record before acknowledgement. Replace all three existing script files, then deploy a new version of the existing web app. This update is prepared and locally tested; live verification follows deployment. Existing triggers remain as backups.
+
 # Owner email notifications — prepared, not activated
 
 Recipient: thisisfurqanahmad@gmail.com. No prospect emails are sent.

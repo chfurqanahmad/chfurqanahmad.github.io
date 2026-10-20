@@ -22,7 +22,8 @@ function setupEnquiryAcknowledgements() {
   }
 }
 
-function sendEnquiryAcknowledgements() {
+function sendEnquiryAcknowledgements(submissionId) {
+  const targetId = typeof submissionId === 'string' ? submissionId : null;
   const enabled = Date.parse(PropertiesService.getScriptProperties().getProperty('ACK_ENABLED_AT') || '');
   if (!Number.isFinite(enabled)) return;
   const lock = LockService.getUserLock();
@@ -30,6 +31,9 @@ function sendEnquiryAcknowledgements() {
   try {
     const book = notificationBook_(), sheet = book.getSheetByName('Enquiries'), log = acknowledgementLog_(book);
     if (sheet.getLastRow() < 2) return;
+    const ownerLog = book.getSheetByName('Notification Log');
+    if (!ownerLog || ownerLog.getLastRow() < 2) return;
+    const ownerSent = new Set(ownerLog.getRange(2, 1, ownerLog.getLastRow() - 1, 2).getDisplayValues().filter(r => r[1] === 'Sent').map(r => r[0]));
     const now = Date.now(), recentCutoff = now - 24 * 60 * 60 * 1000;
     const records = log.getLastRow() > 1 ? log.getRange(2, 1, log.getLastRow() - 1, 5).getValues() : [];
     const byId = new Map(), recentRecipients = new Set();
@@ -48,6 +52,8 @@ function sendEnquiryAcknowledgements() {
       const received = r[0] instanceof Date ? r[0].getTime() : NaN;
       const email = String(r[3] || '').trim(), id = String(r[6] || '');
       if (!Number.isFinite(received) || received < enabled || received > now || !/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(id)) continue;
+      // Never acknowledge before this enquiry's owner alert has been accepted and logged.
+      if ((targetId && id !== targetId) || !ownerSent.has(id)) continue;
       const prior = byId.get(id);
       if (prior && prior.status !== 'Retry') continue;
       const logRow = prior ? prior.row : log.getLastRow() + 1;

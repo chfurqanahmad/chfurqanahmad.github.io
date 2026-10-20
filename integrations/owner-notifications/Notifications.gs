@@ -18,7 +18,8 @@ function setupEnquiryNotifications() {
   sendEnquiryNotifications();
 }
 
-function sendEnquiryNotifications() {
+function sendEnquiryNotifications(submissionId) {
+  const targetId = typeof submissionId === 'string' ? submissionId : null;
   // User lock serializes notification runs without blocking the public form's script lock.
   const lock = LockService.getUserLock();
   if (!lock.tryLock(1000)) return;
@@ -35,11 +36,14 @@ function sendEnquiryNotifications() {
     for (let i = 0; i < rows.length && remaining > 0; i++) {
       const [received, name, company, email, subject, goal, id] = rows[i];
       if (!/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(id) || !name || !email || !goal) continue;
+      if (targetId && id !== targetId) continue;
       const prior = notices.get(id);
       if (prior && prior.status !== 'Retry') continue;
       const logRow = prior ? prior.row : log.getLastRow() + 1;
+      if (logRow > log.getMaxRows()) log.insertRowsAfter(log.getMaxRows(), 100);
       const rowUrl = book.getUrl() + '#gid=' + sheet.getSheetId() + '&range=A' + (i + 2) + ':G' + (i + 2);
       log.getRange(logRow, 1, 1, 4).setValues([[id, 'Sending', new Date(), 'If this remains Sending, check delivery before retrying.']]);
+      log.getRange(logRow, 3).setNumberFormat('yyyy-mm-dd hh:mm:ss');
       SpreadsheetApp.flush();
       let sent = false;
       try {

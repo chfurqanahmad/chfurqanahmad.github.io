@@ -1,3 +1,5 @@
+> Update 20 October: the initial scheduled version was activated and verified in the delivery logs. Updated scripts now support immediate dispatch from doPost and require a matching Sent owner-notification record before acknowledgement. Replace all three existing script files, then deploy a new version of the existing web app. This update is prepared and locally tested; live verification follows deployment. Existing triggers remain as backups.
+
 # Prospect acknowledgements — prepared, activation pending
 
 Add Acknowledgements.gs as a new Script file named Acknowledgements in the existing Website Enquiries Apps Script project. Keep Code.gs, Notifications.gs and the already-authorized manifest unchanged. Save, choose setupEnquiryAcknowledgements and Run once under thisisfurqanahmad@gmail.com. No web-app redeployment is needed. The setup creates one five-minute trigger and sends the owner a confirmation containing the prospect email copy.

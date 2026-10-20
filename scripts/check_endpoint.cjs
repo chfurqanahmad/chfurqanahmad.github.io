@@ -5,6 +5,7 @@ const crypto = require('node:crypto');
 const path = require('node:path');
 const rows = [['Received at (Chicago)', 'Name', 'Company', 'Email', 'Subject', 'Goal', 'Submission ID']];
 let locked=false, failWrite=false;
+const emailOrder=[];let failEmail=false;
 function range(r,c,h=1,w=1){
   return {
     getDisplayValues(){return Array.from({length:h},(_,i)=>Array.from({length:w},(_,j)=>String(rows[r+i-1]?.[c+j-1]??'')));},
@@ -15,7 +16,7 @@ function range(r,c,h=1,w=1){
   };
 }
 const cache=new Map();
-const context={Date,ContentService:{MimeType:{JSON:'json'},createTextOutput(text){return {setMimeType(){return JSON.parse(text);}};}},
+const context={Date,sendEnquiryNotifications(id){assert.equal(locked,false);emailOrder.push('owner:'+id);if(failEmail)throw Error('Email failed');},sendEnquiryAcknowledgements(id){emailOrder.push('client:'+id);},ContentService:{MimeType:{JSON:'json'},createTextOutput(text){return {setMimeType(){return JSON.parse(text);}};}},
   PropertiesService:{getScriptProperties:()=>({getProperty:()=> 'test-sheet'})},
   SpreadsheetApp:{openById:()=>({getSheetByName:()=>({getRange:range,getLastRow:()=>rows.length,getMaxRows:()=>1000})}),newRichTextValue:()=>({setText(text){this.text=text;return this;},build(){return {text:this.text};}}),flush(){}},
   LockService:{getScriptLock:()=>({tryLock(){if(locked)return false;locked=true;return true;},hasLock:()=>locked,releaseLock(){locked=false;}})},
@@ -29,11 +30,13 @@ assert.equal(context.doPost(event({...valid,email:'invalid'})).ok,false);
 assert.equal(context.doPost(event({...valid,website:'bot'})).ok,false);
 assert.equal(rows.length,1);
 let result=context.doPost(event(valid));assert.equal(result.ok,true);assert.equal(result.submissionId,valid.submissionId);
+assert.deepEqual(emailOrder,['owner:'+valid.submissionId,'client:'+valid.submissionId]);
 assert.equal(rows.length,2);assert.equal(rows[1][4],'=1+1');assert(rows[1][0] instanceof Date);
 assert.equal(context.doPost(event(valid)).ok,true);assert.equal(rows.length,2);
 assert.equal(context.doPost(event({...valid,goal:'Changed content'})).error,'conflicting_request');
 failWrite=true;assert.equal(context.doPost(event({...valid,submissionId:crypto.randomUUID()})).ok,false);assert.equal(locked,false);failWrite=false;
 assert.equal(context.doPost(event({...valid,goal:' '.repeat(4)})).ok,false);
 assert.equal(context.doPost({...event(valid),parameters:{name:['one','two']}}).ok,false);
+failEmail=true;const emailFailureId=crypto.randomUUID();assert.equal(context.doPost(event({...valid,submissionId:emailFailureId})).ok,true);assert.equal(emailOrder.at(-1),'owner:'+emailFailureId);assert.equal(rows.at(-1)[6],emailFailureId);
 assert.equal(context.doGet().service,'website-enquiries');
 console.log('PASS: input rejection, literal text write path, duplicate receipt, conflicting retry, failed write and lock release. Live Google verification still required.');

@@ -12,6 +12,13 @@ Frontend requires a matching JSON receipt, preserves inputs on failure and reuse
 
 Validation 19 October 2026: live save and matching receipt passed; leading-equals text stored as text; retry returned the same receipt without another row; incomplete request rejected. Local interaction, backend and static site checks passed.
 
-No owner notification or prospect acknowledgement emails are enabled; those are separate tasks.
+Owner notifications and prospect acknowledgements were enabled on 20 October 2026. The updated code attempts owner notification and then acknowledgement immediately after saving, with the existing scheduled jobs as retry backups. Both send logs deduplicate by submission ID; acknowledgements additionally require a matching Sent owner record and preserve the 24-hour per-address cap. This immediate-dispatch update still requires replacing the three Apps Script files and redeploying the existing web app. Sent means accepted by Google, not confirmed inbox delivery or inbox ordering.
 
 For backend updates: paste integrations/apps-script/Code.gs into Apps Script, save, and use Deploy > Manage deployments > Edit > New version > Deploy, preserving the endpoint URL.
+
+## Immediate ordered email update
+Replace Code.gs, Notifications.gs and Acknowledgements.gs with their corresponding repository files. Keep the existing manifest with spreadsheets, script.send_mail and script.scriptapp scopes; the canonical manifest in integrations/apps-script now matches these approved scopes. Save all files, then Deploy > Manage deployments > Edit > New version > Deploy. Do not create new triggers or a new endpoint.
+
+Expected flow: save and flush row, release save lock, send owner email, record Sent, send client acknowledgement only after checking the matching owner Sent record. Request timeout remains 60 seconds; a retry reuses the submission ID, avoiding duplicate rows and already-logged messages. If the owner email fails or its receipt is uncertain, the client acknowledgement waits. Scheduled retries may take five minutes or longer. Submission order does not guarantee inbox arrival order.
+
+Delivery uses Google's MailApp under the authorized Gmail account, with truthful sender names, fixed plain-text client copy, a valid reply-to, no attachments, no tracking pixels and conservative acknowledgement limits. Receiving providers still control spam classification.
